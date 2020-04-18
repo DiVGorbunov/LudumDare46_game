@@ -457,6 +457,7 @@ MonoBehaviour:
   - {fileID: 1660716370}
   clientTransformScale: {x: 1, y: 1, z: 1}
   placementAttempts: 5
+  randomizeHealth: 1
 --- !u!4 &1606075240
 Transform:
   m_ObjectHideFlags: 0

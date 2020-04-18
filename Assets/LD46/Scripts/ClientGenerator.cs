@@ -7,6 +7,7 @@ public class ClientGenerator : MonoBehaviour
     public BoxCollider[] surfaces;
     public Vector3 clientTransformScale = new Vector3(1f, 1f, 1f);
     public int placementAttempts = 5;
+    public bool randomizeHealth = false;
 
     void Start()
     {
@@ -18,11 +19,29 @@ public class ClientGenerator : MonoBehaviour
                 var newClient = Instantiate(client, newClientPosition, Quaternion.identity, gameObject.transform);
 
                 newClient.transform.localScale = clientTransformScale;
-                newClient.GetComponent<Health>().onDie += () =>
-                {
-                    Destroy(newClient);
-                };
+                ConfigureNewClientHealth(newClient);
             }
+        }
+    }
+
+    private void ConfigureNewClientHealth(GameObject newClient)
+    {
+        if (randomizeHealth)
+        {
+            var healthDecrease = newClient.GetComponent<TimedDeathWithHealthDecrease>();
+            if (healthDecrease != null)
+            {
+                healthDecrease.secondsToLive += Random.value * healthDecrease.secondsToLive;
+            }
+        }
+
+        var health = newClient.GetComponent<Health>();
+        if (health != null)
+        {
+            health.onDie += () =>
+            {
+                Destroy(newClient);
+            };
         }
     }
 
