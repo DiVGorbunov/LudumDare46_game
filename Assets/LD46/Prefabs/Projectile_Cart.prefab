@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5542020336735652036}
   - component: {fileID: 2223418409092269418}
   - component: {fileID: 6841512634174719543}
+  - component: {fileID: -6242089841290583787}
   m_Layer: 0
   m_Name: Projectile_Cart
   m_TagString: Untagged
@@ -103,7 +104,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106790115311484953}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de99b30e1e73fd14e98cc5371da25d12, type: 3}
   m_Name: 
@@ -173,6 +174,38 @@ MonoBehaviour:
   color:
     min: {r: 0, g: 1, b: 0.033423424, a: 1}
     max: {r: 0, g: 12.996038, b: 0.356754, a: 1}
+--- !u!114 &-6242089841290583787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106790115311484953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d4c124cd6b505643b95d559cdd7779c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.2
+  root: {fileID: 106790115311484948}
+  tip: {fileID: 106790115311484948}
+  maxLifeTime: 5
+  impactVFX: {fileID: 4260779743739990948, guid: bbe6bdea7cd168e428a309e9eb2e728b,
+    type: 3}
+  impactVFXLifetime: 5
+  impactVFXSpawnOffset: 0.1
+  impactSFXClip: {fileID: 8300000, guid: cba089de3eef16d46baeda4077140a74, type: 3}
+  hittableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  speed: 30
+  gravityDownAcceleration: 10
+  trajectoryCorrectionDistance: -1
+  inheritWeaponVelocity: 0
+  damage: 40
+  areaOfDamage: {fileID: 0}
+  radiusColor: {r: 0, g: 0.2, b: 0.2, a: 0.2}
+  TargetTag: Client
 --- !u!1 &1945832826066038730
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e89a597fa17a53438b569c8f4a83aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponPrefab: {fileID: 2225486910712267859, guid: 3439b4874b7b44e4eb2216314c46b85c,
+  WeaponPrefab: {fileID: 2225486910712267859, guid: 11d34779c4caae448bd855a9ceb44e20,
     type: 3}
   WeaponSocket: {fileID: 6027170290659243387}
   PlayerSocket: {fileID: 371191274612658744}
