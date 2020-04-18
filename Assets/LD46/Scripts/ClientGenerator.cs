@@ -16,7 +16,12 @@ public class ClientGenerator : MonoBehaviour
             if (TryGetNewClientPosition(out newClientPosition))
             {
                 var newClient = Instantiate(client, newClientPosition, Quaternion.identity, gameObject.transform);
+
                 newClient.transform.localScale = clientTransformScale;
+                newClient.GetComponent<Health>().onDie += () =>
+                {
+                    Destroy(newClient);
+                };
             }
         }
     }
