@@ -84,6 +84,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     public UnityAction<bool> onStanceChanged;
 
+    private bool isInTurret = false;
+
     public Vector3 characterVelocity { get; set; }
     public bool isGrounded { get; private set; }
     public bool hasJumpedThisFrame { get; private set; }
@@ -128,6 +130,14 @@ public class PlayerCharacterController : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, PlayerCharacterController>(m_InputHandler, this, gameObject);
 
         m_WeaponsManager = GetComponent<PlayerWeaponsManager>();
+
+        Turret turret = m_WeaponsManager.GetTurret();
+        if (turret)
+        {
+            AttachToTurret(turret);
+        }
+          
+
         DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerCharacterController>(m_WeaponsManager, this, gameObject);
 
         m_Health = GetComponent<Health>();
@@ -143,6 +153,19 @@ public class PlayerCharacterController : MonoBehaviour
         // force the crouch state to false when starting
         SetCrouchingState(false, true);
         UpdateCharacterHeight(true);
+    }
+
+    void AttachToTurret(Turret turret)
+    {
+        this.gameObject.transform.position = turret.PlayerSocket.position;
+        this.gameObject.transform.SetParent(turret.PlayerSocket);
+        isInTurret = true;
+    }
+
+    void DetachFromTurret()
+    {
+        this.gameObject.transform.SetParent(null);
+        isInTurret = true;
     }
 
     void Update()
@@ -232,9 +255,17 @@ public class PlayerCharacterController : MonoBehaviour
             }
         }
     }
-
     void HandleCharacterMovement()
     {
+        if (m_WeaponsManager.GetTurret())
+        {
+            Turret turret = m_WeaponsManager.GetTurret();
+            //Vector3 pos = turret.PlayerSocket.position - this.gameObject.transform.position;
+            //transform.forward = turret.gameObject.transform.forward;
+            turret.addRotation(m_InputHandler.GetLookInputsVertical() * rotationSpeed * RotationMultiplier, m_InputHandler.GetLookInputsHorizontal() * rotationSpeed * RotationMultiplier);
+            return;
+        }
+
         // horizontal character rotation
         {
             // rotate the transform with the input speed around its local Y axis
@@ -432,5 +463,14 @@ public class PlayerCharacterController : MonoBehaviour
 
         isCrouching = crouched;
         return true;
+    }
+
+    private void LateUpdate()
+    {
+        Turret turret = m_WeaponsManager.GetTurret();
+        if (turret)
+        {
+            transform.forward = turret.gameObject.transform.forward;
+        }
     }
 }
