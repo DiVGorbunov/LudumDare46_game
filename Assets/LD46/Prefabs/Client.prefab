@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7674137928163832584}
   m_Layer: 0
   m_Name: Client
-  m_TagString: Untagged
+  m_TagString: Client
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,4 +109,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 0
   client: {fileID: 0}
-  surface: {fileID: 0}
+  surfaces: []
+  clientTransform: {x: 1, y: 1, z: 1}

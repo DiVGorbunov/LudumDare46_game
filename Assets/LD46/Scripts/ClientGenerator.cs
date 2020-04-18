@@ -5,10 +5,8 @@ public class ClientGenerator : MonoBehaviour
     public int number = 10;
     public GameObject client;
     public BoxCollider[] surfaces;
-    public Vector3 clientTransform = new Vector3(1f, 1f, 1f);
-
-    private const string ClientTag = "Client";
-    private const int PlacementAttempts = 5;
+    public Vector3 clientTransformScale = new Vector3(1f, 1f, 1f);
+    public int placementAttempts = 5;
 
     void Start()
     {
@@ -18,8 +16,7 @@ public class ClientGenerator : MonoBehaviour
             if (TryGetNewClientPosition(out newClientPosition))
             {
                 var newClient = Instantiate(client, newClientPosition, Quaternion.identity);
-                newClient.transform.localScale = clientTransform;
-                newClient.tag = ClientTag;
+                newClient.transform.localScale = clientTransformScale;
             }
         }
     }
@@ -30,11 +27,11 @@ public class ClientGenerator : MonoBehaviour
         do
         {
             var surface = GetRandomSurface();
-            position = new Vector3(surface.bounds.center.x + (Random.value - 0.5f) * (surface.bounds.size.x - clientTransform.x),
-                   surface.bounds.center.y + surface.bounds.extents.y + clientTransform.y,
-                   surface.bounds.center.z + (Random.value - 0.5f) * (surface.bounds.size.z - clientTransform.z));
+            position = new Vector3(surface.bounds.center.x + (Random.value - 0.5f) * (surface.bounds.size.x - clientTransformScale.x),
+                   surface.bounds.center.y + surface.bounds.extents.y + clientTransformScale.y,
+                   surface.bounds.center.z + (Random.value - 0.5f) * (surface.bounds.size.z - clientTransformScale.z));
 
-            var overlaps = Physics.OverlapCapsule(position, clientTransform, clientTransform.y / 2f);
+            var overlaps = Physics.OverlapCapsule(position, clientTransformScale, clientTransformScale.y / 2f);
             if (HasClient(overlaps))
             {
                 attempts++;
@@ -42,7 +39,7 @@ public class ClientGenerator : MonoBehaviour
             }
 
             return true;
-        } while (attempts < PlacementAttempts);
+        } while (attempts < placementAttempts);
 
         position = Vector3.zero;
         return false;
@@ -66,7 +63,7 @@ public class ClientGenerator : MonoBehaviour
     {
         for (int i = 0; i < overlaps.Length; i++)
         {
-            if (overlaps[i].gameObject.CompareTag(ClientTag))
+            if (overlaps[i].gameObject.CompareTag(client.tag))
             {
                 return true;
             }
