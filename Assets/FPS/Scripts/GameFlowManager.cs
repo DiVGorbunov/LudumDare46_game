@@ -30,7 +30,6 @@ public class GameFlowManager : MonoBehaviour
 
     PlayerCharacterController m_Player;
     NotificationHUDManager m_NotificationHUDManager;
-    ObjectiveUnsatisfiedClients objectiveUnsatisfiedClients;
     ObjectiveManager m_ObjectiveManager;
     float m_TimeLoadEndGameScene;
     string m_SceneToLoad;
@@ -42,8 +41,6 @@ public class GameFlowManager : MonoBehaviour
 
         m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
 		DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
-
-        objectiveUnsatisfiedClients = GetComponent<ObjectiveUnsatisfiedClients>();
 
         AudioUtility.SetMasterVolume(1);
     }

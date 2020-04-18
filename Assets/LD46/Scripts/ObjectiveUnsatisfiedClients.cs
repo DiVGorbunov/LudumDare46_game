@@ -16,7 +16,7 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
 
         var clientGenerator = FindObjectOfType<ClientGenerator>();
         DebugUtility.HandleErrorIfNullFindObject<ClientGenerator, ObjectiveUnsatisfiedClients>(clientGenerator, this);
-        clientGenerator.onClientDie += OnClientDie;
+        clientGenerator.onClientUnsatisfy += OnClientUnsatisfy;
 
         if (string.IsNullOrEmpty(m_Objective.title))
             m_Objective.title = $"Don't get more than {maxUnsatisfiedClients} unsatisfied clients.";
@@ -25,7 +25,7 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
             m_Objective.description = GetUpdatedCounterAmount();
     }
 
-    void OnClientDie()
+    void OnClientUnsatisfy()
     {
         if (m_Objective.isCompleted)
         {

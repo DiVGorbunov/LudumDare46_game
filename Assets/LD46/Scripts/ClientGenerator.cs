@@ -9,7 +9,7 @@ public class ClientGenerator : MonoBehaviour
     public Vector3 clientTransformScale = new Vector3(1f, 1f, 1f);
     public int placementAttempts = 5;
     public bool randomizeHealth = false;
-    public UnityAction onClientDie;
+    public UnityAction onClientUnsatisfy;
 
     void Start()
     {
@@ -42,9 +42,9 @@ public class ClientGenerator : MonoBehaviour
         {
             health.onDie += () =>
             {
-                if (onClientDie != null)
+                if (onClientUnsatisfy != null)
                 {
-                    onClientDie.Invoke();
+                    onClientUnsatisfy.Invoke();
                 }
                 Destroy(newClient);
             };
