@@ -21,6 +21,8 @@ public class Health : MonoBehaviour
 
     bool m_IsDead;
 
+    public bool IsDead => m_IsDead;
+
     private void Start()
     {
         currentHealth = maxHealth;
