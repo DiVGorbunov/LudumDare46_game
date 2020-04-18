@@ -84,6 +84,8 @@ public class PlayerCharacterController : MonoBehaviour
 
     public UnityAction<bool> onStanceChanged;
 
+    private bool isInTurret = false;
+
     public Vector3 characterVelocity { get; set; }
     public bool isGrounded { get; private set; }
     public bool hasJumpedThisFrame { get; private set; }
@@ -128,6 +130,14 @@ public class PlayerCharacterController : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, PlayerCharacterController>(m_InputHandler, this, gameObject);
 
         m_WeaponsManager = GetComponent<PlayerWeaponsManager>();
+
+        Turret turret = m_WeaponsManager.GetTurret();
+        if (turret)
+        {
+            AttachToTurret(turret);
+        }
+          
+
         DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerCharacterController>(m_WeaponsManager, this, gameObject);
 
         m_Health = GetComponent<Health>();
@@ -143,6 +153,20 @@ public class PlayerCharacterController : MonoBehaviour
         // force the crouch state to false when starting
         SetCrouchingState(false, true);
         UpdateCharacterHeight(true);
+    }
+
+    void AttachToTurret(Turret turret)
+    {
+        this.gameObject.transform.position = turret.PlayerSocket.position;
+        this.gameObject.transform.SetParent(turret.PlayerSocket);
+        transform.forward = turret.gameObject.transform.forward;
+        isInTurret = true;
+    }
+
+    void DetachFromTurret()
+    {
+        this.gameObject.transform.SetParent(null);
+        isInTurret = true;
     }
 
     void Update()
@@ -232,9 +256,17 @@ public class PlayerCharacterController : MonoBehaviour
             }
         }
     }
-
     void HandleCharacterMovement()
     {
+        if (m_WeaponsManager.GetTurret())
+        {
+            Turret turret = m_WeaponsManager.GetTurret();
+            float vertical = m_InputHandler.GetLookInputsVertical() * rotationSpeed * RotationMultiplier;
+            float horizontal = m_InputHandler.GetLookInputsHorizontal() * rotationSpeed * RotationMultiplier;
+            turret.AddRotation(vertical, horizontal);
+            return;
+        }
+
         // horizontal character rotation
         {
             // rotate the transform with the input speed around its local Y axis

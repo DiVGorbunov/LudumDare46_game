@@ -78,6 +78,7 @@ public class PlayerWeaponsManager : MonoBehaviour
     float m_TimeStartedWeaponSwitch;
     WeaponSwitchState m_WeaponSwitchState;
     int m_WeaponSwitchNewWeaponIndex;
+    public Turret m_Turret = null;
 
     private void Start()
     {
@@ -107,11 +108,10 @@ public class PlayerWeaponsManager : MonoBehaviour
         // shoot handling
         WeaponController activeWeapon = GetActiveWeapon();
 
-        if (activeWeapon && m_WeaponSwitchState == WeaponSwitchState.Up)
+        if (activeWeapon && (m_Turret || m_WeaponSwitchState == WeaponSwitchState.Up))
         {
             // handle aiming down sights
             isAiming = m_InputHandler.GetAimInputHeld();
-
             // handle shooting
             bool hasFired = activeWeapon.HandleShootInputs(
                 m_InputHandler.GetFireInputDown(),
@@ -125,28 +125,30 @@ public class PlayerWeaponsManager : MonoBehaviour
                 m_AccumulatedRecoil = Vector3.ClampMagnitude(m_AccumulatedRecoil, maxRecoilDistance);
             }
         }
-
-        // weapon switch handling
-        if (!isAiming &&
-            (activeWeapon == null || !activeWeapon.isCharging) &&
-            (m_WeaponSwitchState == WeaponSwitchState.Up || m_WeaponSwitchState == WeaponSwitchState.Down))
+        if (!m_Turret)
         {
-            int switchWeaponInput = m_InputHandler.GetSwitchWeaponInput();
-            if (switchWeaponInput != 0)
+            // weapon switch handling
+            if (!isAiming &&
+                (activeWeapon == null || !activeWeapon.isCharging) &&
+                (m_WeaponSwitchState == WeaponSwitchState.Up || m_WeaponSwitchState == WeaponSwitchState.Down))
             {
-                bool switchUp = switchWeaponInput > 0;
-                SwitchWeapon(switchUp);
-            }
-            else
-            {
-                switchWeaponInput = m_InputHandler.GetSelectWeaponInput();
+                int switchWeaponInput = m_InputHandler.GetSwitchWeaponInput();
                 if (switchWeaponInput != 0)
                 {
-                    if (GetWeaponAtSlotIndex(switchWeaponInput - 1) != null)
-                        SwitchToWeaponIndex(switchWeaponInput - 1);
+                    bool switchUp = switchWeaponInput > 0;
+                    SwitchWeapon(switchUp);
+                }
+                else
+                {
+                    switchWeaponInput = m_InputHandler.GetSelectWeaponInput();
+                    if (switchWeaponInput != 0)
+                    {
+                        if (GetWeaponAtSlotIndex(switchWeaponInput - 1) != null)
+                            SwitchToWeaponIndex(switchWeaponInput - 1);
+                    }
                 }
             }
-        }
+        }        
 
         // Pointing at enemy handling
         isPointingAtEnemy = false;
@@ -162,10 +164,23 @@ public class PlayerWeaponsManager : MonoBehaviour
         }
     }
 
+    public void enterTurret(Turret turret)
+    {
+        m_Turret = turret;
+    }
+
+    public void escapeTurret()
+    {
+        m_Turret = null;
+    }
 
     // Update various animated features in LateUpdate because it needs to override the animated arm position
     private void LateUpdate()
     {
+        if (m_Turret)
+        {
+            return;
+        }
         UpdateWeaponAiming();
         UpdateWeaponBob();
         UpdateWeaponRecoil();
@@ -463,7 +478,17 @@ public class PlayerWeaponsManager : MonoBehaviour
 
     public WeaponController GetActiveWeapon()
     {
+        if (m_Turret)
+        {
+            return m_Turret.GetWeapon();
+        }
+
         return GetWeaponAtSlotIndex(activeWeaponIndex);
+    }
+
+    public Turret GetTurret()
+    {
+        return m_Turret;
     }
 
     public WeaponController GetWeaponAtSlotIndex(int index)
