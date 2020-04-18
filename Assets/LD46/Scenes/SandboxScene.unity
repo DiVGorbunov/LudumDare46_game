@@ -382,8 +382,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377155996}
-  m_LocalRotation: {x: -0.2919018, y: -0.123797156, z: 0.038130917, w: -0.9476359}
-  m_LocalPosition: {x: -1.5227495, y: 12.224577, z: -19.19741}
+  m_LocalRotation: {x: -0.33941665, y: -0.13007103, z: 0.047449134, w: -0.93039054}
+  m_LocalPosition: {x: -4.8526564, y: 7.864851, z: -13.472809}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -423,7 +423,8 @@ MonoBehaviour:
   surfaces:
   - {fileID: 597612974}
   - {fileID: 1660716370}
-  clientTransform: {x: 1, y: 1, z: 1}
+  clientTransformScale: {x: 1, y: 1, z: 1}
+  placementAttempts: 5
 --- !u!4 &1606075240
 Transform:
   m_ObjectHideFlags: 0
