@@ -30,6 +30,7 @@ public class GameFlowManager : MonoBehaviour
 
     PlayerCharacterController m_Player;
     NotificationHUDManager m_NotificationHUDManager;
+    ObjectiveUnsatisfiedClients objectiveUnsatisfiedClients;
     ObjectiveManager m_ObjectiveManager;
     float m_TimeLoadEndGameScene;
     string m_SceneToLoad;
@@ -41,6 +42,8 @@ public class GameFlowManager : MonoBehaviour
 
         m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
 		DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
+
+        objectiveUnsatisfiedClients = GetComponent<ObjectiveUnsatisfiedClients>();
 
         AudioUtility.SetMasterVolume(1);
     }
@@ -67,7 +70,8 @@ public class GameFlowManager : MonoBehaviour
                 EndGame(true);
 
             // Test if player died
-            if (m_Player.isDead)
+            if (m_Player.isDead ||
+                (objectiveUnsatisfiedClients != null && objectiveUnsatisfiedClients.IsCompleted()))
                 EndGame(false);
         }
     }

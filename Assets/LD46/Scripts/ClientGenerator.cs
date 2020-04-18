@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class ClientGenerator : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class ClientGenerator : MonoBehaviour
     public Vector3 clientTransformScale = new Vector3(1f, 1f, 1f);
     public int placementAttempts = 5;
     public bool randomizeHealth = false;
+    public UnityAction onClientDie;
 
     void Start()
     {
@@ -40,6 +42,10 @@ public class ClientGenerator : MonoBehaviour
         {
             health.onDie += () =>
             {
+                if (onClientDie != null)
+                {
+                    onClientDie.Invoke();
+                }
                 Destroy(newClient);
             };
         }
