@@ -159,6 +159,7 @@ public class PlayerCharacterController : MonoBehaviour
     {
         this.gameObject.transform.position = turret.PlayerSocket.position;
         this.gameObject.transform.SetParent(turret.PlayerSocket);
+        transform.forward = turret.gameObject.transform.forward;
         isInTurret = true;
     }
 
@@ -260,9 +261,9 @@ public class PlayerCharacterController : MonoBehaviour
         if (m_WeaponsManager.GetTurret())
         {
             Turret turret = m_WeaponsManager.GetTurret();
-            //Vector3 pos = turret.PlayerSocket.position - this.gameObject.transform.position;
-            //transform.forward = turret.gameObject.transform.forward;
-            turret.addRotation(m_InputHandler.GetLookInputsVertical() * rotationSpeed * RotationMultiplier, m_InputHandler.GetLookInputsHorizontal() * rotationSpeed * RotationMultiplier);
+            float vertical = m_InputHandler.GetLookInputsVertical() * rotationSpeed * RotationMultiplier;
+            float horizontal = m_InputHandler.GetLookInputsHorizontal() * rotationSpeed * RotationMultiplier;
+            turret.AddRotation(vertical, horizontal);
             return;
         }
 
@@ -463,14 +464,5 @@ public class PlayerCharacterController : MonoBehaviour
 
         isCrouching = crouched;
         return true;
-    }
-
-    private void LateUpdate()
-    {
-        Turret turret = m_WeaponsManager.GetTurret();
-        if (turret)
-        {
-            transform.forward = turret.gameObject.transform.forward;
-        }
     }
 }

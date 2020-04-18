@@ -14,12 +14,12 @@ public class Turret : MonoBehaviour
 
     private float lastXRotaion = 0.0f, lastYRotation = 0.0f;
 
-    public void addRotation(float xRot, float yRot)
+    public void AddRotation(float xRot, float yRot)
     {
         lastXRotaion = Mathf.Clamp(lastXRotaion+xRot, minXRotation, maxXRotation);
         lastYRotation += yRot;
     }
-    public void updateRotation()
+    public void UpdateRotation()
     {
         gameObject.transform.localEulerAngles = new Vector3(lastXRotaion, lastYRotation, 0);
     }
@@ -44,6 +44,6 @@ public class Turret : MonoBehaviour
 
     void LateUpdate()
     {
-        updateRotation();
+        UpdateRotation();
     }
 }

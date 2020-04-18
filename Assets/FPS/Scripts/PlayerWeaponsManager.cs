@@ -179,11 +179,6 @@ public class PlayerWeaponsManager : MonoBehaviour
     {
         if (m_Turret)
         {
-            //UpdateWeaponAiming();
-            //UpdateWeaponBob();
-            //UpdateWeaponRecoil();
-            //UpdateWeaponSwitching();
-            //m_Turret.WeaponSocket.localPosition = m_WeaponRecoilLocalPosition;
             return;
         }
         UpdateWeaponAiming();
