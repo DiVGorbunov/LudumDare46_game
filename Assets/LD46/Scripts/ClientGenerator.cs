@@ -15,7 +15,7 @@ public class ClientGenerator : MonoBehaviour
             Vector3 newClientPosition;
             if (TryGetNewClientPosition(out newClientPosition))
             {
-                var newClient = Instantiate(client, newClientPosition, Quaternion.identity);
+                var newClient = Instantiate(client, newClientPosition, Quaternion.identity, gameObject.transform);
                 newClient.transform.localScale = clientTransformScale;
             }
         }
