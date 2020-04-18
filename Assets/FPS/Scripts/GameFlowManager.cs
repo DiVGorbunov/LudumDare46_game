@@ -67,7 +67,8 @@ public class GameFlowManager : MonoBehaviour
                 EndGame(true);
 
             // Test if player died
-            if (m_Player.isDead)
+            if (m_Player.isDead ||
+                m_ObjectiveManager.IsAnyFailingObjectiveCompleted())
                 EndGame(false);
         }
     }
