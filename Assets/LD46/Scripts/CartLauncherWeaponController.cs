@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CartLauncherWeaponController : WeaponController
 {
-    List<int> LastGatheredCart = new List<int>();
+    List<Fruit> LastGatheredCart = new List<Fruit>();
 
     protected override void Update()
     {
@@ -15,54 +15,34 @@ public class CartLauncherWeaponController : WeaponController
 
     void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            AddItem(0);
-        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            AddItem(1);
+            AddItem((Fruit)0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            AddItem(2);
+            AddItem((Fruit)1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            AddItem(3);
+            AddItem((Fruit)2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            AddItem(4);
+            AddItem((Fruit)3);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            AddItem(5);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            AddItem(6);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            AddItem(7);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            AddItem(8);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            AddItem(9);
+            AddItem((Fruit)4);
         }
     }
 
-    public void AddItem(int newItem)
+    public void AddItem(Fruit newItem)
     {
         LastGatheredCart.Add(newItem);
     }
 
-    public void RemoveItem(int item)
+    public void RemoveItem(Fruit item)
     {
         LastGatheredCart.Remove(item);
     }
@@ -76,7 +56,7 @@ public class CartLauncherWeaponController : WeaponController
             ProjectileBase newProjectile = Instantiate(projectilePrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
             ProjectileCart cart = newProjectile.GetComponent<ProjectileCart>();
             cart.SetItems(LastGatheredCart);
-            LastGatheredCart = new List<int>();
+            LastGatheredCart = new List<Fruit>();
             newProjectile.Shoot(this);
         }
     }

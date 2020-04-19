@@ -6,7 +6,7 @@ public class ProjectileCart : ProjectileStandard
 {
     public string TargetTag = "Client";
 
-    public List<int> cartItems = new List<int>();
+    public List<Fruit> cartItems = new List<Fruit>();
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +14,7 @@ public class ProjectileCart : ProjectileStandard
         //cartItems = new List<int> { 1, 2, 3, 4 };
     }
 
-    public void SetItems(List<int> items)
+    public void SetItems(List<Fruit> items)
     {
         cartItems = items;
     }
