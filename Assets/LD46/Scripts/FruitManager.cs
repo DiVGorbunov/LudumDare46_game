@@ -68,6 +68,7 @@ public class FruitManager
     {
         return new FruitItem
         {
+            itemType = fruit,
             itemIcon = _spriteDictionary[fruit]
         };
     }
@@ -80,6 +81,7 @@ public class FruitManager
         {
             fruitItems.Add(new FruitItem
             {
+                itemType = item.Key,
                 itemIcon = item.Value
             });
         }
@@ -91,6 +93,7 @@ public class FruitManager
 public class FruitItem
 {
     public Sprite itemIcon;
+    public Fruit itemType;
 }
 
 public enum Fruit

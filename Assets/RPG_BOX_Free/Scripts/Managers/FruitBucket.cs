@@ -14,11 +14,7 @@ public class FruitBucket : InventoryManager
     public override bool AddItemToInventory(FruitItem ItemToAdd)//bool to check can this item be added to the inventory or no
     {
         int TheIndexOfMe = TakeIndexOfPos();
-        if (TheIndexOfMe > PositionsAndOccupation.Count)//in case the index is more than the slots numbers
-        {
-            ErrorMessageText.instance.ShowMessage("No Enough space in inventory");
-            return false;
-        }
+
         GameObject NewItem = GameObject.Instantiate(ItemGoPrefab, ItemsParent);
         NewItem.transform.position = PositionsAndOccupation[TheIndexOfMe].aPos;
         ItemProps AccIP = NewItem.GetComponent<ItemProps>();
@@ -33,8 +29,23 @@ public class FruitBucket : InventoryManager
         {
             Inventory.Add(TheIndexOfMe, ItemAndGo);
         }
+
         return true;
 
+    }
+
+    public Fruit[] GetBucketFruits()
+    {
+        Fruit[] fruits = new Fruit[Inventory.Count];
+
+        int index = 0;
+        foreach (var item in Inventory)
+        {
+            fruits[index] = item.Value.TheItem.itemType;
+            index++;
+        }
+
+        return fruits;
     }
 
     public void removeAllFruits()
