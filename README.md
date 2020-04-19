@@ -15,3 +15,7 @@
   2.4. (необязательно) - добавьте к нему компонент Display Message.
 
 Такая цель будет публиковать нотификации ObjectiveHUDManger и NotificationHUDManager.
+
+## Работа с запросами клиентов
+
+Бесплатные иконки в публичном доступе можно найти здесь: https://freeicons.io/icon-list/vegetables-and-fruits-icons

@@ -1,12 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class CanvasFruitController : MonoBehaviour
 {
     public GameObject canvasFruit;
 
     private const float _borderOffset = 0.05f;
-    private const float _borderBottomOffset = 0.2f;
+    private const float _borderBottomOffset = 0.4f;
     private const float _fruitOffset = 0.02f;
+
+    private string[] sprites = new string[]
+    {
+        "LD46/banana",
+        "LD46/orange_01-512",
+        "LD46/563985331536061994-128",
+        "LD46/7740441641536061993-128",
+        "LD46/14012404041536062005-128"
+    };
 
     public void Generate(int number)
     {
@@ -23,6 +33,14 @@ public class CanvasFruitController : MonoBehaviour
         {
             var newFruit = Instantiate(canvasFruit, gameObject.transform);
             var newFruitRectTransform = newFruit.GetComponent<RectTransform>();
+
+            var image = newFruit.GetComponent<Image>();
+            int index = Mathf.FloorToInt(Random.value * sprites.Length);
+            if (index == sprites.Length)
+            {
+                index--;
+            }
+            image.sprite = Resources.Load<Sprite>(sprites[index]);
 
             newFruitRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, fruitYOffset, fruitDimension);
             newFruitRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, fruitXOffset + i * (fruitDimension + _fruitOffset), fruitDimension);
