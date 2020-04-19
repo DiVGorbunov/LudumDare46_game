@@ -110,68 +110,68 @@ public class HoverManager : MonoBehaviour
 
     public void ItemToShow(ItemProps itemAsGo) //takes item and shows its properties to the player
     {
-        Item TheItem=itemAsGo.MyItem;
-        NameText.text = TheItem.itemName;
-        RarityText.text = TheItem.itemRarity.ToString();
-        ItemIconSize = itemAsGo.MyImage.GetComponent<RectTransform>().sizeDelta;
+        //var TheItem=itemAsGo.MyItem;
+        //NameText.text = TheItem.itemName;
+        //RarityText.text = TheItem.itemRarity.ToString();
+        //ItemIconSize = itemAsGo.MyImage.GetComponent<RectTransform>().sizeDelta;
 
-        if (AccRM != null)
-        {
-            RarityText.color = AccRM.ColorOfRarity[(int)TheItem.itemRarity];
-        }
-        ItemIconImg.sprite = TheItem.itemIcon;
-        LevelReqText.text = "Level: " + TheItem.LevelReq.ToString();
+        //if (AccRM != null)
+        //{
+        //    RarityText.color = AccRM.ColorOfRarity[(int)TheItem.itemRarity];
+        //}
+        //ItemIconImg.sprite = TheItem.itemIcon;
+        //LevelReqText.text = "Level: " + TheItem.LevelReq.ToString();
 
-        #region ItemType Ifs
-        if (TheItem.itemType == ItemType.Gear)
-        {
-            BGSize = BGSizeForGear;
-            Boarder2.SetActive(true);
-            LowerPart.localPosition = SecondBoarderPosition;
-            AttributeText.transform.localPosition = AttPos;
-            TypeText.text = TheItem.gearMainType.ToString();
-            MainStatText1.text = "";
-            if (TheItem.mainStat.TheStat == MainStat.Attack)
-            {
-                MainStatText1.text = "Attack: " + TheItem.mainStat.TheValue;
-            }
-            else if (TheItem.mainStat.TheStat == MainStat.Magic)
-            {
-                MainStatText1.text = "Magic: " + TheItem.mainStat.TheValue;
-            }
-            else if (TheItem.mainStat.TheStat == MainStat.Defence)
-            {
-                MainStatText1.text = "Defence: " + TheItem.mainStat.TheValue;
-            }
-            AttributeText.text = GetAttributesInGoodTextFormat(TheItem.Attributes);
-        }
-        else if (TheItem.itemType == ItemType.Misc || TheItem.itemType == ItemType.Consumable)
-        {
-            BGSize = BGSizeForMisc;
+        //#region ItemType Ifs
+        //if (TheItem.itemType == ItemType.Gear)
+        //{
+        //    BGSize = BGSizeForGear;
+        //    Boarder2.SetActive(true);
+        //    LowerPart.localPosition = SecondBoarderPosition;
+        //    AttributeText.transform.localPosition = AttPos;
+        //    TypeText.text = TheItem.gearMainType.ToString();
+        //    MainStatText1.text = "";
+        //    if (TheItem.mainStat.TheStat == MainStat.Attack)
+        //    {
+        //        MainStatText1.text = "Attack: " + TheItem.mainStat.TheValue;
+        //    }
+        //    else if (TheItem.mainStat.TheStat == MainStat.Magic)
+        //    {
+        //        MainStatText1.text = "Magic: " + TheItem.mainStat.TheValue;
+        //    }
+        //    else if (TheItem.mainStat.TheStat == MainStat.Defence)
+        //    {
+        //        MainStatText1.text = "Defence: " + TheItem.mainStat.TheValue;
+        //    }
+        //    AttributeText.text = GetAttributesInGoodTextFormat(TheItem.Attributes);
+        //}
+        //else if (TheItem.itemType == ItemType.Misc || TheItem.itemType == ItemType.Consumable)
+        //{
+        //    BGSize = BGSizeForMisc;
 
-            Boarder2.SetActive(false);
-            MainStatText1.text = "";
-            AttributeText.transform.position = new Vector2(AttributeText.transform.position.x, MainStatText1.transform.position.y+(TextFont/2));
-            AttributeText.text = TheItem.Description;
+        //    Boarder2.SetActive(false);
+        //    MainStatText1.text = "";
+        //    AttributeText.transform.position = new Vector2(AttributeText.transform.position.x, MainStatText1.transform.position.y+(TextFont/2));
+        //    AttributeText.text = TheItem.Description;
 
-            TypeText.text = TheItem.itemType.ToString();
-            LowerPart.localPosition = FirstBoarderPosition;
-        }
-        #endregion
+        //    TypeText.text = TheItem.itemType.ToString();
+        //    LowerPart.localPosition = FirstBoarderPosition;
+        //}
+        //#endregion
 
-        #region ItemHome Ifs
-        if (itemAsGo.MyHome == ItemHome.Inventory || itemAsGo.MyHome == ItemHome.Dropped || itemAsGo.MyHome == ItemHome.Equiped)
-        {
-            SellPriceText.text = "Sell: " + TheItem.SellPrice.ToString();
-        }
-        else if (itemAsGo.MyHome == ItemHome.PlayerBuyTab)
-        {
-            SellPriceText.text = "Buy: " + TheItem.BuyPrice.ToString();
-        }
-        #endregion
+        //#region ItemHome Ifs
+        //if (itemAsGo.MyHome == ItemHome.Inventory || itemAsGo.MyHome == ItemHome.Dropped || itemAsGo.MyHome == ItemHome.Equiped)
+        //{
+        //    SellPriceText.text = "Sell: " + TheItem.SellPrice.ToString();
+        //}
+        //else if (itemAsGo.MyHome == ItemHome.PlayerBuyTab)
+        //{
+        //    SellPriceText.text = "Buy: " + TheItem.BuyPrice.ToString();
+        //}
+        //#endregion
 
-        LowerPos = LowerPart.localPosition;
-        ForceAdd();
+        //LowerPos = LowerPart.localPosition;
+        //ForceAdd();
     }
 
     public void CallHoverer(Vector2 PosOfItem, ItemProps ItemToHover) // when the player hover over an item, it calls this method

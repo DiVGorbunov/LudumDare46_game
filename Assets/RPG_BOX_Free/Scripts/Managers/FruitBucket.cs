@@ -15,7 +15,7 @@ public class FruitBucket : InventoryManager
             this.removeAllFruits();
         }
     }
-    public override bool AddItemToInventory(Item ItemToAdd)//bool to check can this item be added to the inventory or no
+    public override bool AddItemToInventory(FruitItem ItemToAdd)//bool to check can this item be added to the inventory or no
     {
         int TheIndexOfMe = TakeIndexOfPos();
         if (TheIndexOfMe > PositionsAndOccupation.Count)//in case the index is more than the slots numbers
@@ -36,10 +36,6 @@ public class FruitBucket : InventoryManager
         else
         {
             Inventory.Add(TheIndexOfMe, ItemAndGo);
-        }
-        if (ItemToAdd.IsStackable)
-        {
-            ListOfStackables.Add(new CustomItemIntInt(ItemToAdd, 1, TheIndexOfMe));
         }
         return true;
 

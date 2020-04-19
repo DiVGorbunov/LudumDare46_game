@@ -45,54 +45,6 @@ public class EquipmentManager : MonoBehaviour
 
     }
 
-    public bool AddItemToEquipmentInventory(ItemProps TheItemToAdd) 
-    {
-        
-        Transform itemParent=null;
-        if (AccInv != null)
-        {
-            foreach (KeyValuePair<GearMainType, Transform> eq in EquipmentSlots)
-            {
-                if (eq.Key == TheItemToAdd.MyItem.gearMainType)
-                {
-                    itemParent = eq.Value;
-                }
-            }
-
-            if (itemParent == null)
-            {
-                return false;
-            }
-            //codes for adding item to the equipment inventory
-            GameObject NewItem = GameObject.Instantiate(ItemGoPrefab, itemParent);
-            NewItem.transform.localPosition = new Vector2(0, 0);
-            ItemProps AccIP = NewItem.GetComponent<ItemProps>();
-            AccIP.TakeInfo(TheItemToAdd.MyItem, 0, ItemHome.Equiped);
-
-            CustomItemAndGo ItemAndGo = new CustomItemAndGo(TheItemToAdd.MyItem, NewItem);
-            AccInv.RemoveItemFromInventory(TheItemToAdd.MyPlaceInHome);
-
-            if (EquipmentInventory.ContainsKey(TheItemToAdd.MyItem.gearMainType))
-            {
-                AccInv.AddItemToInventory(EquipmentInventory[TheItemToAdd.MyItem.gearMainType].TheItem);
-                RemoveItemFromEquipmentInventory(TheItemToAdd.MyItem.gearMainType);
-                EquipmentInventory.Add(TheItemToAdd.MyItem.gearMainType, ItemAndGo);
-            }
-            else
-            {
-                EquipmentInventory.Add(TheItemToAdd.MyItem.gearMainType, ItemAndGo);
-            }
-            return true;
-        }
-        else
-        {
-            Debug.Log("No Inventory");
-            return false;
-        }
-
-    }
-
-
     public void RemoveItemFromEquipmentInventory(GearMainType WhichType)
     {
         //codes for removing item from the equipment inventory and sending it back to the main inventory

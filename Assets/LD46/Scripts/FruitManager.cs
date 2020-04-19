@@ -63,6 +63,26 @@ public class FruitManager
     {
         return _spriteDictionary[fruit];
     }
+
+    public List<FruitItem> GetFruitItems()
+    {
+        var fruitItems = new List<FruitItem>();
+
+        foreach (var item in _spriteDictionary)
+        {
+            fruitItems.Add(new FruitItem
+            {
+                itemIcon = item.Value
+            });
+        }
+
+        return fruitItems;
+    }
+}
+
+public class FruitItem
+{
+    public Sprite itemIcon;
 }
 
 public enum Fruit

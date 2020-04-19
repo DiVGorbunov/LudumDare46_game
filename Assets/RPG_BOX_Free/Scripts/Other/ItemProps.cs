@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -8,13 +6,12 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
 {
     //Script for the item GameObject itself and how it manages all the commands.
 
-    public Item MyItem;
+    public FruitItem MyItem;
     public int MyPlaceInHome;
     public Image MyImage;
     Text CounterText;
     HoverManager AccHM;
     InventoryManager AccInv;
-    ShopManager AccShop;
     FruitBucket bucket;
 
     public ItemHome MyHome;
@@ -39,7 +36,7 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
 
 
 
-    public void TakeInfo(Item TheItem, int ThePlaceInInventroy, ItemHome TheHome)//When the item is created, it takes these paramets to determine its function and to determine where it is placed (inventory or shop, etc)
+    public void TakeInfo(FruitItem TheItem, int ThePlaceInInventroy, ItemHome TheHome)//When the item is created, it takes these paramets to determine its function and to determine where it is placed (inventory or shop, etc)
     {
         MyItem = TheItem;
         MyImage = transform.Find("ItemSpriteIcon").GetComponent<Image>();
