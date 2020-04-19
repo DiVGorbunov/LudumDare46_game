@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour 
+public class InventoryManager : MonoBehaviour
 {
-    public static Dictionary<int, CustomItemAndGo> Inventory = new Dictionary<int, CustomItemAndGo>();//Dictionary of slots and items (main inventory)
-    List<CustomBoolIntVector2> PositionsAndOccupation = new List<CustomBoolIntVector2>();//list for every position in the inventroy and is it occupied or not
-    List<CustomItemIntInt> ListOfStackables = new List<CustomItemIntInt>();//list for stackable items
+    public Dictionary<int, CustomItemAndGo> Inventory = new Dictionary<int, CustomItemAndGo>();//Dictionary of slots and items (main inventory)
+    public List<CustomBoolIntVector2> PositionsAndOccupation = new List<CustomBoolIntVector2>();//list for every position in the inventroy and is it occupied or not
+    public List<CustomItemIntInt> ListOfStackables = new List<CustomItemIntInt>();//list for stackable items
 
-    int MaxNumberOfStacks = 99;
+    int MaxNumberOfStacks = 1;
 
     public Sprite BackgroundSprite;
     public Sprite SlotSprite;
@@ -18,22 +18,22 @@ public class InventoryManager : MonoBehaviour
     Transform X2Y1;//second slot in first row
     Transform X1Y2;//first slot in second row
 
-    Transform ItemsParent;
+    public Transform ItemsParent;
     Transform SlotsParent;
 
     RectTransform BackgroundRT;
 
-    GameObject ItemGoPrefab;
+    public GameObject ItemGoPrefab;
     GameObject InventorySlotPrefab;
 
-    public int Rows =3;
-    public int Columns =3;
-    public int SlotSize=100;
-    public int SpacingBetweenSlots=30;
+    public int Rows = 3;
+    public int Columns = 3;
+    public int SlotSize = 100;
+    public int SpacingBetweenSlots = 30;
     public int TopBottomMargin;
     public int RightLeftMargin;
-    public int TopBottomSpace=100;
-    public int RightLeftSpace=100;
+    public int TopBottomSpace = 100;
+    public int RightLeftSpace = 100;
 
     int MaxNumberOfItemsALLinventory;
 
@@ -59,7 +59,7 @@ public class InventoryManager : MonoBehaviour
     {
         TransformsLoader();
         PrefabLoader();
-        MaxNumberOfItemsALLinventory = Columns*Rows;
+        MaxNumberOfItemsALLinventory = Columns * Rows;
         StartCoroutine(AssignXYPos());
     }
 
@@ -140,7 +140,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public bool AddItemToInventory(Item ItemToAdd)//bool to check can this item be added to the inventory or no
+    public virtual bool AddItemToInventory(Item ItemToAdd)//bool to check can this item be added to the inventory or no
     {
         if (ItemToAdd.IsStackable)
         {
@@ -205,15 +205,18 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveItemFromInventory(int indexOfItemRemoved) // removes the item completly from the inventory
     {
-        PositionsAndOccupation[indexOfItemRemoved].IsOccupied = false;
-        ItemProps AccIP = Inventory[indexOfItemRemoved].TheGameObject.GetComponent<ItemProps>();
-        AccIP.DestroyItem();
-        Inventory.Remove(indexOfItemRemoved);
+        if (Inventory.ContainsKey(indexOfItemRemoved))
+        {
+            PositionsAndOccupation[indexOfItemRemoved].IsOccupied = false;
+            ItemProps AccIP = Inventory[indexOfItemRemoved].TheGameObject.GetComponent<ItemProps>();
+            AccIP.DestroyItem();
+            Inventory.Remove(indexOfItemRemoved);
+        }
     }
 
-    int TakeIndexOfPos()
+    public int TakeIndexOfPos()
     {
-        int TheIndex=99999;//basically infinty
+        int TheIndex = 99999;//basically infinty
 
         for (int i = 0; i < PositionsAndOccupation.Count; i++)
         {
@@ -274,6 +277,11 @@ public class InventoryManager : MonoBehaviour
             Instantiate(InventorySlotPrefab, SlotsParent);
         }
     }
+
+    public int getInventoryCount()
+    {
+        return Inventory.Count;
+    }
 }
 
 public class CustomBoolIntVector2
@@ -282,7 +290,7 @@ public class CustomBoolIntVector2
     public Vector2 aPos;
     public int TabNumber;
 
-    public CustomBoolIntVector2(bool occ,int tab, Vector2 pos)
+    public CustomBoolIntVector2(bool occ, int tab, Vector2 pos)
     {
         IsOccupied = occ;
         TabNumber = tab;
@@ -307,7 +315,7 @@ public class CustomItemIntInt
     public int ItemStacks;
     public int ItemNumberInInventory;
 
-    public CustomItemIntInt(Item item, int itemStacks,int itemNumber)
+    public CustomItemIntInt(Item item, int itemStacks, int itemNumber)
     {
         TheItem = item;
         ItemStacks = itemStacks;

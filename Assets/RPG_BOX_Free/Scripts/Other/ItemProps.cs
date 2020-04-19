@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemProps : MonoBehaviour , IPointerClickHandler
+public class ItemProps : MonoBehaviour, IPointerClickHandler
 {
     //Script for the item GameObject itself and how it manages all the commands.
 
@@ -15,29 +15,25 @@ public class ItemProps : MonoBehaviour , IPointerClickHandler
     HoverManager AccHM;
     InventoryManager AccInv;
     ShopManager AccShop;
-    EquipmentManager AccEq;
+    FruitBucket bucket;
 
     public ItemHome MyHome;
 
 
-    void Start () 
-	{
+    void Start()
+    {
         //loads neccessary Managers
         if (GameObject.Find("ItemHoverer") != null)
         {
             AccHM = GameObject.Find("ItemHoverer").GetComponent<HoverManager>();
         }
-        if (GameObject.Find("InventoryWindow") != null)
+        if (GameObject.Find("FruitFactory") != null)
         {
-            AccInv = GameObject.Find("InventoryWindow").GetComponent<InventoryManager>();
+            AccInv = GameObject.Find("FruitFactory").GetComponent<FruitFactory>();
         }
-        if (GameObject.Find("ShopWindow") != null)
+        if (GameObject.Find("Bucket") != null)
         {
-            AccShop = GameObject.Find("ShopWindow").GetComponent<ShopManager>();
-        }
-        if (GameObject.Find("EquipmentWindow") != null)
-        {
-            AccEq = GameObject.Find("EquipmentWindow").GetComponent<EquipmentManager>();
+            bucket = GameObject.Find("Bucket").GetComponent<FruitBucket>();
         }
     }
 
@@ -46,12 +42,12 @@ public class ItemProps : MonoBehaviour , IPointerClickHandler
     public void TakeInfo(Item TheItem, int ThePlaceInInventroy, ItemHome TheHome)//When the item is created, it takes these paramets to determine its function and to determine where it is placed (inventory or shop, etc)
     {
         MyItem = TheItem;
-        MyImage = transform.Find("ItemSpriteIcon"). GetComponent<Image>();
+        MyImage = transform.Find("ItemSpriteIcon").GetComponent<Image>();
         CounterText = transform.Find("ItemCounter").GetComponent<Text>();
         CounterText.text = "";
         MyPlaceInHome = ThePlaceInInventroy;
         MyHome = TheHome;
-        
+
         MyImage.sprite = TheItem.itemIcon;
 
     }
@@ -94,120 +90,21 @@ public class ItemProps : MonoBehaviour , IPointerClickHandler
     public void MouseClick()
     {
 
-        if (MyHome == ItemHome.Inventory) //if the item is in the inventory
+        if (
+            MyHome == ItemHome.Inventory &&
+            bucket.getInventoryCount() < bucket.Rows * bucket.Columns
+        )
         {
-            if (ShopManager.IsSellMode)
-            {
-                FromInventoryToSell();
-            }
-            else if (MyItem.itemType == ItemType.Consumable)
-            {
-                ConsumeItem();
-            }
-            else if (MyItem.itemType == ItemType.Gear)
-            {
-                FromInventoryToEquip();
-            }
+            bucket.AddItemToInventory(MyItem);
+            AccInv.RemoveItemFromInventory(MyPlaceInHome);
+
         }
-        else if (MyHome == ItemHome.PlayerBuyTab)//if the item is in the shop
+        else if (MyHome == ItemHome.FruitBucket)
         {
-            FromBuyToInventory();
-        }
-        else if (MyHome == ItemHome.Equiped)//if the item is in Equipment inventory
-        {
-            FromEquipToInventory();
+            bucket.RemoveItemFromInventory(MyPlaceInHome);
         }
 
     }
-
-    void ConsumeItem()//when the item is consumed (for cosumable items)
-    {
-        if (AccInv != null)
-        {
-            Debug.Log("ITEM CONSUMED");//Do the consuming function instead of this Debug.Log
-            ErrorMessageText.instance.ShowMessage("item is consumed");
-
-            bool IsLastStack = false;
-            if (MyItem.IsStackable)
-            {
-                if (AccInv.ReduceStackableSize(MyPlaceInHome))
-                {
-                    IsLastStack = true;
-                }
-            }
-
-            if (MyItem.IsStackable == false || IsLastStack)
-            {
-                //Give player money for selling the item (the sell price is MyItem.SellPrice) .. Example: playerData.instance.AddGold(MyItem.SellPrice);
-                AccInv.RemoveItemFromInventory(MyPlaceInHome);
-                DestroyItem();
-            }
-        }
-    }
-
-    void FromBuyToInventory()
-    {
-        if (AccShop != null)
-        {
-            if (AccShop.BuyFromShop(MyPlaceInHome))//If the player can buy this item
-            {
-                DestroyItem();
-            }
-        }
-    }
-
-    void FromEquipToInventory()
-    {
-        if (AccInv != null && AccEq != null)
-        {
-            if (AccInv.AddItemToInventory(MyItem))//If the player can add this item to the inventroy (example: enough space in Inventory)
-            {
-                AccEq.RemoveItemFromEquipmentInventory(MyItem.gearMainType);
-                DestroyItem();
-            }
-        }
-    }
-
-
-    void FromInventoryToEquip()
-    {
-        if (AccEq != null)
-        {
-            if (AccEq.AddItemToEquipmentInventory(this))//If the player can add this item to Equipment inventory
-            {
-                DestroyItem();
-            }
-        }
-    }
-
-    void FromInventoryToSell()
-    {
-        if (AccInv!=null)
-        {
-            bool IsLastStack = false;
-            if (MyItem.IsStackable)
-            {
-                AccShop.TestScenePlayerGold += MyItem.SellPrice;
-                if (AccInv.ReduceStackableSize(MyPlaceInHome))
-                {
-                    IsLastStack = true;
-                }
-            }
-
-            if (MyItem.IsStackable == false || IsLastStack)
-            {
-                //Give player money for selling the item (the sell price is MyItem.SellPrice) .. Example: playerData.instance.AddGold(MyItem.SellPrice);
-                if (IsLastStack == false)
-                {
-                    AccShop.TestScenePlayerGold += MyItem.SellPrice;
-                }
-                AccInv.RemoveItemFromInventory(MyPlaceInHome);
-                DestroyItem();
-            }
-
-        }
-    }
-
 
     public void DestroyItem()
     {
@@ -222,5 +119,5 @@ public class ItemProps : MonoBehaviour , IPointerClickHandler
 
 public enum ItemHome
 {
-    Inventory = 0, PlayerBuyTab = 1, Dropped = 2, Equiped = 3
+    Inventory = 0, PlayerBuyTab = 1, Dropped = 2, Equiped = 3, FruitBucket = 4
 }
