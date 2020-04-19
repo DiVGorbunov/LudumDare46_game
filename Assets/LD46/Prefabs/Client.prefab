@@ -113,8 +113,8 @@ GameObject:
   - component: {fileID: 1465598394090862732}
   - component: {fileID: 1465598394090862735}
   - component: {fileID: 6260710813039963148}
-  - component: {fileID: 7986653796490925751}
   - component: {fileID: 8163756902920423539}
+  - component: {fileID: 3442435515973908899}
   m_Layer: 0
   m_Name: Client
   m_TagString: Client
@@ -213,20 +213,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   criticalHealthRatio: 0.3
---- !u!114 &7986653796490925751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465598394090862734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57b6feafc5f61e2479ca5a03f2aeca35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  secondsToLive: 10
-  delta: 1
 --- !u!114 &8163756902920423539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +223,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88567379ffc126c4e96b34011148ffa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 6260710813039963148}
+  healthBarImage: {fileID: 8840800491245123106}
+  healthBarPivot: {fileID: 3654977196682042358}
+  hideFullHealthBar: 0
+--- !u!114 &3442435515973908899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465598394090862734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b6feafc5f61e2479ca5a03f2aeca35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 6260710813039963148}

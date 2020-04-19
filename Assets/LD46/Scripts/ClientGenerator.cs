@@ -21,45 +21,27 @@ public class ClientGenerator : MonoBehaviour
                 var newClient = Instantiate(client, newClientPosition, Quaternion.identity, gameObject.transform);
 
                 newClient.transform.localScale = clientTransformScale;
-                ConfigureNewClientHealth(newClient);
-                ConfigureNewClientFruits(newClient);
+                ConfigureNewClient(newClient);
             }
         }
     }
 
-    private void ConfigureNewClientHealth(GameObject newClient)
+    private void ConfigureNewClient(GameObject newClient)
     {
+        var newClientController = newClient.GetComponent<ClientController>();
+
         if (randomizeHealth)
         {
-            var healthDecrease = newClient.GetComponent<TimedDeathWithHealthDecrease>();
-            if (healthDecrease != null)
+            newClientController.RandomizeHealth();
+        }
+
+        newClientController.onUnsatisfy += () =>
+        {
+            if (onClientUnsatisfy != null)
             {
-                healthDecrease.secondsToLive += Random.value * healthDecrease.secondsToLive;
+                onClientUnsatisfy.Invoke();
             }
-        }
-
-        var health = newClient.GetComponent<Health>();
-        if (health != null)
-        {
-            health.onDie += () =>
-            {
-                if (onClientUnsatisfy != null)
-                {
-                    onClientUnsatisfy.Invoke();
-                }
-                Destroy(newClient);
-            };
-        }
-    }
-
-    private void ConfigureNewClientFruits(GameObject newClient)
-    {
-        var fruitController = newClient.GetComponentInChildren<CanvasFruitController>();
-        if (fruitController != null)
-        {
-            var fruits = GetFruits();
-            fruitController.Generate(fruits.Length);
-        }
+        };
     }
 
     private bool TryGetNewClientPosition(out Vector3 position)
@@ -111,11 +93,5 @@ public class ClientGenerator : MonoBehaviour
         }
 
         return false;
-    }
-
-    private int[] GetFruits()
-    {
-        int size = Mathf.RoundToInt(Random.value * 2f);
-        return new int[size + 1];
     }
 }

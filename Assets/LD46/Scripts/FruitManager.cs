@@ -45,7 +45,18 @@ public class FruitManager
         {
             index--;
         }
+
         return _fruits[index];
+    }
+
+    public Fruit[] GetRandomFruits(int number)
+    {
+        Fruit[] fruits = new Fruit[number];
+        for (int i = 0; i < number; i++)
+        {
+            fruits[i] = GetRandomFruit();
+        }
+        return fruits;
     }
 
     public Sprite GetFruitSprite(Fruit fruit)

@@ -5,9 +5,18 @@ using UnityEngine;
 public class ProjectileCart : ProjectileStandard
 {
     public string TargetTag = "Client";
+
+    public List<int> cartItems = new List<int>();
+
     // Start is called before the first frame update
     void Start()
     {
+        //cartItems = new List<int> { 1, 2, 3, 4 };
+    }
+
+    public void SetItems(List<int> items)
+    {
+        cartItems = items;
     }
 
     // Update is called once per frame
@@ -21,7 +30,11 @@ public class ProjectileCart : ProjectileStandard
 
         if (collider.gameObject.tag == TargetTag)
         {
-            collider.gameObject.GetComponent<Health>().Kill();
+            ClientController controller = collider.gameObject.GetComponent<ClientController>();
+            if (controller)
+            {
+                controller.CheckRequirement(cartItems);
+            }
 
             // Should check if our client is supplied by cart
         }

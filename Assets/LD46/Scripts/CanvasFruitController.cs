@@ -9,17 +9,10 @@ public class CanvasFruitController : MonoBehaviour
     private const float _borderBottomOffset = 0.4f;
     private const float _fruitOffset = 0.02f;
 
-    private string[] sprites = new string[]
+    public void Generate(Fruit[] fruits)
     {
-        "LD46/banana",
-        "LD46/orange_01-512",
-        "LD46/563985331536061994-128",
-        "LD46/7740441641536061993-128",
-        "LD46/14012404041536062005-128"
-    };
+        int number = fruits.Length;
 
-    public void Generate(int number)
-    {
         var rectTransform = GetComponent<RectTransform>();
         float width = rectTransform.rect.width,
             height = rectTransform.rect.height,
@@ -35,8 +28,7 @@ public class CanvasFruitController : MonoBehaviour
             var newFruitRectTransform = newFruit.GetComponent<RectTransform>();
 
             var image = newFruit.GetComponent<Image>();
-            var fruit = FruitManager.Instance.GetRandomFruit();
-            image.sprite = FruitManager.Instance.GetFruitSprite(fruit);
+            image.sprite = FruitManager.Instance.GetFruitSprite(fruits[i]);
 
             newFruitRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, fruitYOffset, fruitDimension);
             newFruitRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, fruitXOffset + i * (fruitDimension + _fruitOffset), fruitDimension);
