@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2225486910712267856}
-  - component: {fileID: 8323776800172828795}
   - component: {fileID: 1284412032582177879}
   - component: {fileID: 6471968429945751368}
   - component: {fileID: 3471509760121373335}
   - component: {fileID: 7583640433812654122}
+  - component: {fileID: 3346278447122113093}
   m_Layer: 10
   m_Name: Weapon_CartLauncher
   m_TagString: Untagged
@@ -37,51 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8323776800172828795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2225486910712267859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ad90ba0b1477764da373f5ec01a8cb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: Cart Launcher
-  weaponIcon: {fileID: 21300000, guid: cab1398a10b307b44b0ffeb0eef23254, type: 3}
-  crosshairDataDefault:
-    crosshairSprite: {fileID: 21300000, guid: 14aa1febcf423c84997aa10d7ff64d17, type: 3}
-    crosshairSize: 100
-    crosshairColor: {r: 0.3254717, g: 1, b: 0.5087882, a: 0.4}
-  crosshairDataTargetInSight:
-    crosshairSprite: {fileID: 21300000, guid: 14aa1febcf423c84997aa10d7ff64d17, type: 3}
-    crosshairSize: 100
-    crosshairColor: {r: 0.4209304, g: 1, b: 0.32549024, a: 1}
-  weaponRoot: {fileID: 5646165488041817916}
-  weaponMuzzle: {fileID: 2749496858225023403}
-  shootType: 2
-  projectilePrefab: {fileID: 6867404450943131836, guid: ca71db95784db1e4e808f18b250c63bb,
-    type: 3}
-  delayBetweenShots: 0.5
-  bulletSpreadAngle: 0
-  bulletsPerShot: 1
-  recoilForce: 1
-  aimZoomRatio: 0.8
-  aimOffset: {x: 0, y: 0, z: 0}
-  ammoReloadRate: 1
-  ammoReloadDelay: 2
-  maxAmmo: 4
-  automaticReleaseOnCharged: 0
-  maxChargeDuration: 1.46
-  ammoUsedOnStartCharge: 1
-  ammoUsageRateWhileCharging: 1
-  weaponAnimator: {fileID: 0}
-  muzzleFlashPrefab: {fileID: 0}
-  unparentMuzzleFlash: 0
-  shootSFX: {fileID: 8300000, guid: 0cacf9e8e361eb24e9101b28422f7c08, type: 3}
-  changeWeaponSFX: {fileID: 8300000, guid: 6f3e0904bbbace745bdef08cdbcdfec0, type: 3}
 --- !u!114 &1284412032582177879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,6 +261,51 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3346278447122113093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225486910712267859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb21cadf94b19c438a3bd3ad6fa46a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: Cart Launcher
+  weaponIcon: {fileID: 21300000, guid: cab1398a10b307b44b0ffeb0eef23254, type: 3}
+  crosshairDataDefault:
+    crosshairSprite: {fileID: 21300000, guid: 14aa1febcf423c84997aa10d7ff64d17, type: 3}
+    crosshairSize: 0
+    crosshairColor: {r: 0, g: 0, b: 0, a: 0}
+  crosshairDataTargetInSight:
+    crosshairSprite: {fileID: 0}
+    crosshairSize: 0
+    crosshairColor: {r: 0, g: 0, b: 0, a: 0}
+  weaponRoot: {fileID: 5646165488041817916}
+  weaponMuzzle: {fileID: 2749496858225023403}
+  shootType: 2
+  projectilePrefab: {fileID: 6867404450943131836, guid: ca71db95784db1e4e808f18b250c63bb,
+    type: 3}
+  delayBetweenShots: 0.5
+  bulletSpreadAngle: 0
+  bulletsPerShot: 1
+  recoilForce: 1
+  aimZoomRatio: 1
+  aimOffset: {x: 0, y: 0, z: 0}
+  ammoReloadRate: 200
+  ammoReloadDelay: 0
+  maxAmmo: 200
+  automaticReleaseOnCharged: 0
+  maxChargeDuration: 2
+  ammoUsedOnStartCharge: 1
+  ammoUsageRateWhileCharging: 1
+  weaponAnimator: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 0}
+  unparentMuzzleFlash: 0
+  shootSFX: {fileID: 8300000, guid: 0cacf9e8e361eb24e9101b28422f7c08, type: 3}
+  changeWeaponSFX: {fileID: 8300000, guid: 6f3e0904bbbace745bdef08cdbcdfec0, type: 3}
 --- !u!1 &2990922162098100101
 GameObject:
   m_ObjectHideFlags: 0

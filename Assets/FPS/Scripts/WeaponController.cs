@@ -119,7 +119,7 @@ public class WeaponController : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent<AudioSource, WeaponController>(m_ShootAudioSource, this, gameObject);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         UpdateAmmo();
 
@@ -290,7 +290,7 @@ public class WeaponController : MonoBehaviour
         return false;
     }
 
-    void HandleShoot()
+    public virtual void SpawnBullets()
     {
         // spawn all bullets with random direction
         for (int i = 0; i < bulletsPerShot; i++)
@@ -299,6 +299,11 @@ public class WeaponController : MonoBehaviour
             ProjectileBase newProjectile = Instantiate(projectilePrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
             newProjectile.Shoot(this);
         }
+    }
+
+    void HandleShoot()
+    {
+        SpawnBullets();
 
         // muzzle flash
         if (muzzleFlashPrefab != null)

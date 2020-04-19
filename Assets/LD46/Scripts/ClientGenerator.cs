@@ -19,19 +19,19 @@ public class ClientGenerator : MonoBehaviour
                 var newClient = Instantiate(client, newClientPosition, Quaternion.identity, gameObject.transform);
 
                 newClient.transform.localScale = clientTransformScale;
-                ConfigureNewClientHealth(newClient);
+                ConfigureNewClient(newClient);
             }
         }
     }
 
-    private void ConfigureNewClientHealth(GameObject newClient)
+    private void ConfigureNewClient(GameObject newClient)
     {
         if (randomizeHealth)
         {
-            var healthDecrease = newClient.GetComponent<TimedDeathWithHealthDecrease>();
-            if (healthDecrease != null)
+            var controller = newClient.GetComponent<ClientController>();
+            if (controller != null)
             {
-                healthDecrease.secondsToLive += Random.value * healthDecrease.secondsToLive;
+                controller.secondsToLive += Random.value * controller.secondsToLive;
             }
         }
 
