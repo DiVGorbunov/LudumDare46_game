@@ -17,7 +17,7 @@ public class PlayerInputHandler : MonoBehaviour
     PlayerCharacterController m_PlayerCharacterController;
     bool m_FireInputWasHeld;
 
-    private void Start()
+    virtual protected void Start()
     {
         m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
         DebugUtility.HandleErrorIfNullGetComponent<PlayerCharacterController, PlayerInputHandler>(m_PlayerCharacterController, this, gameObject);
@@ -33,7 +33,7 @@ public class PlayerInputHandler : MonoBehaviour
         m_FireInputWasHeld = GetFireInputHeld();
     }
 
-    public bool CanProcessInput()
+    public virtual bool CanProcessInput()
     {
         return Cursor.lockState == CursorLockMode.Locked && !m_GameFlowManager.gameIsEnding;
     }
