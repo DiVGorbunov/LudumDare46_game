@@ -11,6 +11,8 @@ public class Objective : MonoBehaviour
     public bool isOptional;
     [Tooltip("Delay before the objective becomes visible")]
     public float delayVisible;
+    [Tooltip("If the objective causes game failure")]
+    public bool isFailing = false;
 
     public bool isCompleted { get; private set; }
     public bool isBlocking() => !(isOptional || isCompleted);

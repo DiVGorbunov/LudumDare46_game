@@ -106,7 +106,7 @@ public class ProjectileStandard : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
         // Move
         transform.position += m_Velocity * Time.deltaTime;
@@ -201,7 +201,7 @@ public class ProjectileStandard : MonoBehaviour
         return true;
     }
 
-    void OnHit(Vector3 point, Vector3 normal, Collider collider)
+    virtual protected void OnHit(Vector3 point, Vector3 normal, Collider collider)
     { 
         // damage
         if (areaOfDamage)
