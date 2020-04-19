@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -8,13 +6,11 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
 {
     //Script for the item GameObject itself and how it manages all the commands.
 
-    public Item MyItem;
+    public FruitItem MyItem;
     public int MyPlaceInHome;
     public Image MyImage;
     Text CounterText;
-    HoverManager AccHM;
     InventoryManager AccInv;
-    ShopManager AccShop;
     FruitBucket bucket;
 
     public ItemHome MyHome;
@@ -23,10 +19,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         //loads neccessary Managers
-        if (GameObject.Find("ItemHoverer") != null)
-        {
-            AccHM = GameObject.Find("ItemHoverer").GetComponent<HoverManager>();
-        }
         if (GameObject.Find("FruitFactory") != null)
         {
             AccInv = GameObject.Find("FruitFactory").GetComponent<FruitFactory>();
@@ -39,7 +31,7 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
 
 
 
-    public void TakeInfo(Item TheItem, int ThePlaceInInventroy, ItemHome TheHome)//When the item is created, it takes these paramets to determine its function and to determine where it is placed (inventory or shop, etc)
+    public void TakeInfo(FruitItem TheItem, int ThePlaceInInventroy, ItemHome TheHome)//When the item is created, it takes these paramets to determine its function and to determine where it is placed (inventory or shop, etc)
     {
         MyItem = TheItem;
         MyImage = transform.Find("ItemSpriteIcon").GetComponent<Image>();
@@ -49,7 +41,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
         MyHome = TheHome;
 
         MyImage.sprite = TheItem.itemIcon;
-
     }
 
     public void ChangeStacks(int NumberOfStacks)
@@ -62,20 +53,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
         {
             CounterText.text = "";
         }
-    }
-
-    public void MouseOn()//When hovering over the item
-    {
-        if (AccHM != null)
-        {
-            AccHM.CallHoverer(transform.position, this);
-        }
-    }
-
-    public void MouseOut()
-    {
-        if (AccHM != null)
-            AccHM.HideTooltip();
     }
 
     public void OnPointerClick(PointerEventData eventData) // when the mouse is clicked
@@ -108,10 +85,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
 
     public void DestroyItem()
     {
-        if (AccHM != null)
-        {
-            AccHM.HideTooltip();
-        }
         Destroy(gameObject);
     }
 
