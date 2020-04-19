@@ -10,7 +10,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
     public int MyPlaceInHome;
     public Image MyImage;
     Text CounterText;
-    HoverManager AccHM;
     InventoryManager AccInv;
     FruitBucket bucket;
 
@@ -20,10 +19,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         //loads neccessary Managers
-        if (GameObject.Find("ItemHoverer") != null)
-        {
-            AccHM = GameObject.Find("ItemHoverer").GetComponent<HoverManager>();
-        }
         if (GameObject.Find("FruitFactory") != null)
         {
             AccInv = GameObject.Find("FruitFactory").GetComponent<FruitFactory>();
@@ -61,20 +56,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void MouseOn()//When hovering over the item
-    {
-        if (AccHM != null)
-        {
-            AccHM.CallHoverer(transform.position, this);
-        }
-    }
-
-    public void MouseOut()
-    {
-        if (AccHM != null)
-            AccHM.HideTooltip();
-    }
-
     public void OnPointerClick(PointerEventData eventData) // when the mouse is clicked
     {
         if (eventData.button == PointerEventData.InputButton.Right)
@@ -105,10 +86,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
 
     public void DestroyItem()
     {
-        if (AccHM != null)
-        {
-            AccHM.HideTooltip();
-        }
         Destroy(gameObject);
     }
 

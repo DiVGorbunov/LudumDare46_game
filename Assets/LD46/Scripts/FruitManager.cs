@@ -64,6 +64,14 @@ public class FruitManager
         return _spriteDictionary[fruit];
     }
 
+    public FruitItem GetFruitItem(Fruit fruit)
+    {
+        return new FruitItem
+        {
+            itemIcon = _spriteDictionary[fruit]
+        };
+    }
+
     public List<FruitItem> GetFruitItems()
     {
         var fruitItems = new List<FruitItem>();
