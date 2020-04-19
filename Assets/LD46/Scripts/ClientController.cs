@@ -14,15 +14,12 @@ public class ClientController : MonoBehaviour
     private IEnumerator _coroutine;
     private Health _objectHealth;
 
-    public List<int> items = null;
     public Fruit[] Fruits { get; private set; }
 
     public UnityAction onUnsatisfy;
 
     void Start()
     {
-        items = new List<int> { 1, 2, 3, 4 };
-
         _objectHealth = GetComponent<Health>();
         _objectHealth.onDie += () =>
         {
@@ -67,22 +64,14 @@ public class ClientController : MonoBehaviour
     public void CheckRequirement(List<int> cartItems)
     {
         if (cartItems.Count == 0) return; 
-        List<int> listCheck = new List<int>(items);
-        bool supplied = false;
-        for (int i = 0; i < cartItems.Count; i++)
+        List<Fruit> listCheck = new List<Fruit>(Fruits);
+
+        foreach (var cartItem in cartItems)
         {
-            if (listCheck.Contains(cartItems[i]))
-            {
-                listCheck.Remove(cartItems[i]);
-                if (listCheck.Count == 0)
-                {
-                    supplied = true;
-                    break;
-                }
-            }
+            listCheck.Remove((Fruit)cartItem);
         }
 
-        if (supplied)
+        if (listCheck.Count == 0)
         {
             Destroy(this.gameObject);
         }
