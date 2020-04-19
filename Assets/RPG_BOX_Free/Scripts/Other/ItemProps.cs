@@ -41,7 +41,6 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
         MyHome = TheHome;
 
         MyImage.sprite = TheItem.itemIcon;
-
     }
 
     public void ChangeStacks(int NumberOfStacks)

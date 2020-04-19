@@ -9,8 +9,6 @@ public class InventoryManager : MonoBehaviour
     public List<CustomBoolIntVector2> PositionsAndOccupation = new List<CustomBoolIntVector2>();//list for every position in the inventroy and is it occupied or not
     public List<CustomItemIntInt> ListOfStackables = new List<CustomItemIntInt>();//list for stackable items
 
-    int MaxNumberOfStacks = 1;
-
     public Sprite BackgroundSprite;
     public Sprite SlotSprite;
 
