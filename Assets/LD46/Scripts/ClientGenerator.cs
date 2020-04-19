@@ -22,6 +22,7 @@ public class ClientGenerator : MonoBehaviour
 
                 newClient.transform.localScale = clientTransformScale;
                 ConfigureNewClientHealth(newClient);
+                ConfigureNewClientFruits(newClient);
             }
         }
     }
@@ -48,6 +49,16 @@ public class ClientGenerator : MonoBehaviour
                 }
                 Destroy(newClient);
             };
+        }
+    }
+
+    private void ConfigureNewClientFruits(GameObject newClient)
+    {
+        var fruitController = newClient.GetComponentInChildren<CanvasFruitController>();
+        if (fruitController != null)
+        {
+            var fruits = GetFruits();
+            fruitController.Generate(fruits.Length);
         }
     }
 
@@ -100,5 +111,11 @@ public class ClientGenerator : MonoBehaviour
         }
 
         return false;
+    }
+
+    private int[] GetFruits()
+    {
+        int size = Mathf.RoundToInt(Random.value * 2f);
+        return new int[size + 1];
     }
 }
