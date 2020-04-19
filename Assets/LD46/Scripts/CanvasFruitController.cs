@@ -35,12 +35,8 @@ public class CanvasFruitController : MonoBehaviour
             var newFruitRectTransform = newFruit.GetComponent<RectTransform>();
 
             var image = newFruit.GetComponent<Image>();
-            int index = Mathf.FloorToInt(Random.value * sprites.Length);
-            if (index == sprites.Length)
-            {
-                index--;
-            }
-            image.sprite = Resources.Load<Sprite>(sprites[index]);
+            var fruit = FruitManager.Instance.GetRandomFruit();
+            image.sprite = FruitManager.Instance.GetFruitSprite(fruit);
 
             newFruitRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, fruitYOffset, fruitDimension);
             newFruitRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, fruitXOffset + i * (fruitDimension + _fruitOffset), fruitDimension);
