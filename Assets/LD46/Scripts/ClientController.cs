@@ -61,14 +61,14 @@ public class ClientController : MonoBehaviour
         }
     }
 
-    public void CheckRequirement(List<int> cartItems)
+    public void CheckRequirement(List<Fruit> cartItems)
     {
         if (cartItems.Count == 0) return; 
         List<Fruit> listCheck = new List<Fruit>(Fruits);
 
         foreach (var cartItem in cartItems)
         {
-            listCheck.Remove((Fruit)cartItem);
+            listCheck.Remove(cartItem);
         }
 
         if (listCheck.Count == 0)

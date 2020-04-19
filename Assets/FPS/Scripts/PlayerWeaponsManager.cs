@@ -101,6 +101,12 @@ public class PlayerWeaponsManager : MonoBehaviour
             AddWeapon(weapon);
         }
         SwitchWeapon(true);
+
+        if (!m_Turret)
+        {
+            m_Turret = GameObject.Find("Turret").GetComponent<Turret>();
+        }
+        
     }
 
     private void Update()

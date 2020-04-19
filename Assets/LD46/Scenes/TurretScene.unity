@@ -546,18 +546,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2729281214849321571}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &735812256 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2367664640008867034, guid: e7eae1afec295514b803f4c3c4cb6eb8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1823527270}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e89a597fa17a53438b569c8f4a83aaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &759815506 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2141676431450117668, guid: cd17687759887a0438ee021e51abc9d9,
@@ -1615,7 +1603,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Turret
       value: 
-      objectReference: {fileID: 735812256}
+      objectReference: {fileID: 0}
     - target: {fileID: 7253983127304857660, guid: 798d643a4ede6884182e46a87964ed69,
         type: 3}
       propertyPath: m_Name
