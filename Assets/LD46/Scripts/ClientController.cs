@@ -29,17 +29,17 @@ public class ClientController : MonoBehaviour
     {
         if (cartItems.Count == 0) return; 
         List<int> listCheck = new List<int>(items);
-        bool supplied = true;
+        bool supplied = false;
         for (int i = 0; i < cartItems.Count; i++)
         {
             if (listCheck.Contains(cartItems[i]))
             {
                 listCheck.Remove(cartItems[i]);
-            }
-            else
-            {
-                supplied = false;
-                break;
+                if (listCheck.Count == 0)
+                {
+                    supplied = true;
+                    break;
+                }
             }
         }
 
