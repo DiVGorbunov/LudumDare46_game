@@ -28,27 +28,20 @@ public class ClientGenerator : MonoBehaviour
 
     private void ConfigureNewClient(GameObject newClient)
     {
+        var newClientController = newClient.GetComponent<ClientController>();
+
         if (randomizeHealth)
         {
-            var controller = newClient.GetComponent<ClientController>();
-            if (controller != null)
-            {
-                controller.secondsToLive += Random.value * controller.secondsToLive;
-            }
+            newClientController.RandomizeHealth();
         }
 
-        var health = newClient.GetComponent<Health>();
-        if (health != null)
+        newClientController.onUnsatisfy += () =>
         {
-            health.onDie += () =>
+            if (onClientUnsatisfy != null)
             {
-                if (onClientUnsatisfy != null)
-                {
-                    onClientUnsatisfy.Invoke();
-                }
-                Destroy(newClient);
-            };
-        }
+                onClientUnsatisfy.Invoke();
+            }
+        };
     }
 
     private bool TryGetNewClientPosition(out Vector3 position)
