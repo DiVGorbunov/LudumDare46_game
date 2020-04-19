@@ -9,8 +9,6 @@ public class InventoryManager : MonoBehaviour
     public List<CustomBoolIntVector2> PositionsAndOccupation = new List<CustomBoolIntVector2>();//list for every position in the inventroy and is it occupied or not
     public List<CustomItemIntInt> ListOfStackables = new List<CustomItemIntInt>();//list for stackable items
 
-    int MaxNumberOfStacks = 1;
-
     public Sprite BackgroundSprite;
     public Sprite SlotSprite;
 
@@ -140,20 +138,8 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public virtual bool AddItemToInventory(Item ItemToAdd)//bool to check can this item be added to the inventory or no
+    public virtual bool AddItemToInventory(FruitItem ItemToAdd)//bool to check can this item be added to the inventory or no
     {
-        if (ItemToAdd.IsStackable)
-        {
-            for (int i = 0; i < ListOfStackables.Count; i++)
-            {
-                if (ListOfStackables[i].TheItem.itemName == ItemToAdd.itemName && ListOfStackables[i].ItemStacks < MaxNumberOfStacks)
-                {
-                    ListOfStackables[i].ItemStacks++;
-                    Inventory[ListOfStackables[i].ItemNumberInInventory].TheGameObject.GetComponent<ItemProps>().ChangeStacks(ListOfStackables[i].ItemStacks);
-                    return true;
-                }
-            }
-        }
         int TheIndexOfMe = TakeIndexOfPos();
         if (TheIndexOfMe > PositionsAndOccupation.Count)//in case the index is more than the slots numbers
         {
@@ -173,32 +159,6 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Inventory.Add(TheIndexOfMe, ItemAndGo);
-        }
-        if (ItemToAdd.IsStackable)
-        {
-            ListOfStackables.Add(new CustomItemIntInt(ItemToAdd, 1, TheIndexOfMe));
-        }
-        return true;
-
-    }
-
-    public bool ReduceStackableSize(int indexOfStackable) //true means destroy the item, false means just reduce stack number
-    {
-        Item aItem = Inventory[indexOfStackable].TheItem;
-
-        for (int i = 0; i < ListOfStackables.Count; i++)
-        {
-            if (ListOfStackables[i].TheItem.itemName == aItem.itemName && ListOfStackables[i].ItemStacks > 1)
-            {
-                ListOfStackables[i].ItemStacks--;
-                Inventory[ListOfStackables[i].ItemNumberInInventory].TheGameObject.GetComponent<ItemProps>().ChangeStacks(ListOfStackables[i].ItemStacks);
-                return false;
-            }
-            else if (ListOfStackables[i].TheItem.itemName == aItem.itemName && ListOfStackables[i].ItemStacks <= 1)
-            {
-                ListOfStackables.RemoveAt(i);
-                return true;
-            }
         }
         return true;
     }
@@ -300,10 +260,10 @@ public class CustomBoolIntVector2
 
 public class CustomItemAndGo
 {
-    public Item TheItem;
+    public FruitItem TheItem;
     public GameObject TheGameObject;
 
-    public CustomItemAndGo(Item item, GameObject go)
+    public CustomItemAndGo(FruitItem item, GameObject go)
     {
         TheItem = item;
         TheGameObject = go;
