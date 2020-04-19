@@ -61,9 +61,9 @@ public class ClientController : MonoBehaviour
         }
     }
 
-    public void CheckRequirement(List<Fruit> cartItems)
+    public bool CheckRequirement(Fruit[] cartItems)
     {
-        if (cartItems.Count == 0) return; 
+        if (cartItems.Length == 0) return false;
         List<Fruit> listCheck = new List<Fruit>(Fruits);
 
         foreach (var cartItem in cartItems)
@@ -74,7 +74,10 @@ public class ClientController : MonoBehaviour
         if (listCheck.Count == 0)
         {
             Destroy(this.gameObject);
+            return true;
         }
+
+        return false;
     }
 
     // Update is called once per frame

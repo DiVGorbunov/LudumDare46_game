@@ -1,28 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class ProjectileCart : ProjectileStandard
 {
-    public string TargetTag = "Client";
+    private const string TargetTag = "Client";
 
-    public List<Fruit> cartItems = new List<Fruit>();
+    public UnityAction onClientSatisfied;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //cartItems = new List<int> { 1, 2, 3, 4 };
-    }
+    private Fruit[] cartItems;
 
-    public void SetItems(List<Fruit> items)
+    public void SetItems(Fruit[] items)
     {
         cartItems = items;
-    }
-
-    // Update is called once per frame
-    override protected void Update()
-    {
-        base.Update();
     }
 
     override protected void OnHit(Vector3 point, Vector3 normal, Collider collider) 
@@ -33,7 +22,13 @@ public class ProjectileCart : ProjectileStandard
             ClientController controller = collider.gameObject.GetComponent<ClientController>();
             if (controller)
             {
-                controller.CheckRequirement(cartItems);
+                if (controller.CheckRequirement(cartItems))
+                {
+                    if (onClientSatisfied != null)
+                    {
+                        onClientSatisfied.Invoke();
+                    }
+                }
             }
 
             // Should check if our client is supplied by cart

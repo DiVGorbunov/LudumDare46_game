@@ -1,50 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CartLauncherWeaponController : WeaponController
 {
-    List<Fruit> LastGatheredCart = new List<Fruit>();
+    private FruitBucket fruitBucket;
 
-    protected override void Update()
+    void Start()
     {
-        base.Update();
-
-        HandleInput();
-    }
-
-    void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            AddItem((Fruit)0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            AddItem((Fruit)1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            AddItem((Fruit)2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            AddItem((Fruit)3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            AddItem((Fruit)4);
-        }
-    }
-
-    public void AddItem(Fruit newItem)
-    {
-        LastGatheredCart.Add(newItem);
-    }
-
-    public void RemoveItem(Fruit item)
-    {
-        LastGatheredCart.Remove(item);
+        fruitBucket = FindObjectOfType<FruitBucket>();
     }
 
     override public void SpawnBullets()
@@ -55,8 +17,12 @@ public class CartLauncherWeaponController : WeaponController
             Vector3 shotDirection = GetShotDirectionWithinSpread(weaponMuzzle);
             ProjectileBase newProjectile = Instantiate(projectilePrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
             ProjectileCart cart = newProjectile.GetComponent<ProjectileCart>();
-            cart.SetItems(LastGatheredCart);
-            LastGatheredCart = new List<Fruit>();
+            cart.SetItems(fruitBucket.GetBucketFruits());
+            cart.onClientSatisfied += () =>
+            {
+                fruitBucket.removeAllFruits();
+            };
+
             newProjectile.Shoot(this);
         }
     }
