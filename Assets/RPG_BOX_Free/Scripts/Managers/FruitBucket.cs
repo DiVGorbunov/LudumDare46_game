@@ -48,7 +48,8 @@ public class FruitBucket : InventoryManager
     public void removeAllFruits()
     {
         int inventorySize = Rows * Columns;
-        for(int i=0;i<inventorySize;i++){
+        for (int i = 0; i < inventorySize; i++)
+        {
             RemoveItemFromInventory(i);
         }
     }

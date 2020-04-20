@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemProps : MonoBehaviour, IPointerClickHandler
+public class ItemProps : MonoBehaviour
 {
     //Script for the item GameObject itself and how it manages all the commands.
 
@@ -78,16 +78,7 @@ public class ItemProps : MonoBehaviour, IPointerClickHandler
             AccHM.HideTooltip();
     }
 
-    public void OnPointerClick(PointerEventData eventData) // when the mouse is clicked
-    {
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            MouseClick();
-        }
-
-    }
-
-    public void MouseClick()
+    public void AddToBucket()
     {
 
         if (

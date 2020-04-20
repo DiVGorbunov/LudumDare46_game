@@ -1,0 +1,55 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections;
+
+public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+{
+
+    private ItemProps item;
+    private Vector2 startPosition;
+    private FruitFactory fruitFactory;
+
+    private void Start()
+    {
+        fruitFactory = GameObject.FindObjectOfType<FruitFactory>();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        item = GetComponent<ItemProps>();
+        startPosition = item.transform.position;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        item.transform.position = eventData.position;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (isMouseOnBucket(eventData))
+        {
+            item.AddToBucket();
+            fruitFactory.RemoveItemFromInventory(item.MyPlaceInHome);
+        }
+        else
+        {
+            item.transform.position = startPosition;
+        }
+
+    }
+
+    private bool isMouseOnBucket(PointerEventData eventData)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(eventData.position, transform.forward, out hit, 100.0f))
+        {
+            if (hit.transform.name.Equals("Bucket"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}
