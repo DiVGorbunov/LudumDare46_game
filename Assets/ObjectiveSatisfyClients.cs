@@ -3,6 +3,7 @@
 public class ObjectiveSatisfyClients : MonoBehaviour
 {
     public int minSatisfiedClients = 5;
+    public bool useDifficultyManager = true;
 
     private int _satisfiedClients = 0;
 
@@ -10,6 +11,8 @@ public class ObjectiveSatisfyClients : MonoBehaviour
 
     void Start()
     {
+        minSatisfiedClients = useDifficultyManager ? DifficultyManager.Instance.GetClientsToSatisfy() : minSatisfiedClients;
+
         m_Objective = GetComponent<Objective>();
         DebugUtility.HandleErrorIfNullGetComponent<Objective, ObjectiveSatisfyClients>(m_Objective, this, gameObject);
 
@@ -18,10 +21,12 @@ public class ObjectiveSatisfyClients : MonoBehaviour
         clientGenerator.onClientSatisfy += OnClientSatisfy;
 
         if (string.IsNullOrEmpty(m_Objective.title))
-            m_Objective.title = $"Satisfy {minSatisfiedClients} clients on the map.";
+            m_Objective.title = $"Satisfy {minSatisfiedClients} {GetClientByNumber(minSatisfiedClients)} on the map.";
 
         if (string.IsNullOrEmpty(m_Objective.description))
             m_Objective.description = GetUpdatedCounterAmount();
+
+        m_Objective.Register();
     }
 
     void OnClientSatisfy()
@@ -47,5 +52,14 @@ public class ObjectiveSatisfyClients : MonoBehaviour
     string GetUpdatedCounterAmount()
     {
         return $"{_satisfiedClients} / {minSatisfiedClients}";
+    }
+
+    string GetClientByNumber(int number)
+    {
+        if (number == 1)
+        {
+            return "client";
+        }
+        return "clients";
     }
 }

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7313899985142775206}
   - component: {fileID: 7313899985142775207}
-  - component: {fileID: 7313899985142775205}
   - component: {fileID: 7313899985142775224}
   m_Layer: 0
   m_Name: ObjectiveSatisfyClients
@@ -46,26 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: 
-  description: Satisfy a few clients on the map
+  description: 
   isOptional: 0
   delayVisible: 4
   isFailing: 0
---- !u!114 &7313899985142775205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7313899985142775225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea4170175d245c6409bb0cb4cc7b2c5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  message: Satisfy a few clients
-  messagePrefab: {fileID: 3003312392959327722, guid: dbfc7742a2f49bf42a9a012e4ec4b773,
-    type: 3}
-  delayBeforeShowing: 0
 --- !u!114 &7313899985142775224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,3 +62,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSatisfiedClients: 5
+  useDifficultyManager: 1

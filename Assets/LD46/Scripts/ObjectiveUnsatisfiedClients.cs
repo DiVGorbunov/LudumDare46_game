@@ -4,6 +4,7 @@
 public class ObjectiveUnsatisfiedClients : MonoBehaviour
 {
     public int maxUnsatisfiedClients = 5;
+    public bool useDifficultyManager = true;
 
     private int _unsatisfiedClients = 0;
 
@@ -11,23 +12,29 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
 
     void Start()
     {
-        m_Objective = GetComponent<Objective>();
-        DebugUtility.HandleErrorIfNullGetComponent<Objective, ObjectiveUnsatisfiedClients>(m_Objective, this, gameObject);
+        maxUnsatisfiedClients = useDifficultyManager ? DifficultyManager.Instance.GetMaxClientsToBeUnsatisfied() : maxUnsatisfiedClients;
+        if (maxUnsatisfiedClients > 0)
+        {
+            var clientGenerator = FindObjectOfType<ClientGenerator>();
+            DebugUtility.HandleErrorIfNullFindObject<ClientGenerator, ObjectiveUnsatisfiedClients>(clientGenerator, this);
+            clientGenerator.onClientUnsatisfy += OnClientUnsatisfy;
 
-        var clientGenerator = FindObjectOfType<ClientGenerator>();
-        DebugUtility.HandleErrorIfNullFindObject<ClientGenerator, ObjectiveUnsatisfiedClients>(clientGenerator, this);
-        clientGenerator.onClientUnsatisfy += OnClientUnsatisfy;
+            m_Objective = GetComponent<Objective>();
+            DebugUtility.HandleErrorIfNullGetComponent<Objective, ObjectiveUnsatisfiedClients>(m_Objective, this, gameObject);
 
-        if (string.IsNullOrEmpty(m_Objective.title))
-            m_Objective.title = $"Don't get more than {maxUnsatisfiedClients} unsatisfied clients.";
+            if (string.IsNullOrEmpty(m_Objective.title))
+                m_Objective.title = $"Don't get more than {maxUnsatisfiedClients} unsatisfied {GetClientByNumber(maxUnsatisfiedClients)}.";
 
-        if (string.IsNullOrEmpty(m_Objective.description))
-            m_Objective.description = GetUpdatedCounterAmount();
+            if (string.IsNullOrEmpty(m_Objective.description))
+                m_Objective.description = GetUpdatedCounterAmount();
+
+            m_Objective.Register();
+        }
     }
 
     void OnClientUnsatisfy()
     {
-        if (m_Objective.isCompleted)
+        if (m_Objective.isCompleted || maxUnsatisfiedClients == 0)
         {
             return;
         }
@@ -48,5 +55,14 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
     string GetUpdatedCounterAmount()
     {
         return $"{_unsatisfiedClients} / {maxUnsatisfiedClients}";
+    }
+
+    string GetClientByNumber(int number)
+    {
+        if (number == 1)
+        {
+            return "client";
+        }
+        return "clients";
     }
 }
