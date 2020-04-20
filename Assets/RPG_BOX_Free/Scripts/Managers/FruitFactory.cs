@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class FruitFactory : InventoryManager
 {
-
     private void Update()
     {
         if (
@@ -14,10 +9,8 @@ public class FruitFactory : InventoryManager
             Inventory.Count < Rows * Columns
         )
         {
-            Debug.Log("Item added");
-            int itemsCount = DatabaseManager.Items.Count;
-            this.AddItemToInventory(DatabaseManager.Items[Random.Range(0, itemsCount)]);
+            var fruit = FruitManager.Instance.GetRandomFruit();
+            AddItemToInventory(FruitManager.Instance.GetFruitItem(fruit));
         }
     }
-
 }
