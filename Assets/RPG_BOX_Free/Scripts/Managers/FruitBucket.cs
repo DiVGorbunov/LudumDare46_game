@@ -7,7 +7,6 @@ public class FruitBucket : InventoryManager
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("dsfdsf");
             this.removeAllFruits();
         }
     }
