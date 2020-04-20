@@ -19,7 +19,7 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
         clientGenerator.onClientUnsatisfy += OnClientUnsatisfy;
 
         if (string.IsNullOrEmpty(m_Objective.title))
-            m_Objective.title = $"Don't get more than {maxUnsatisfiedClients} unsatisfied clients.";
+            m_Objective.title = $"Don't get more than {maxUnsatisfiedClients} unsatisfied {GetClientByNumber(maxUnsatisfiedClients)}.";
 
         if (string.IsNullOrEmpty(m_Objective.description))
             m_Objective.description = GetUpdatedCounterAmount();
@@ -48,5 +48,14 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
     string GetUpdatedCounterAmount()
     {
         return $"{_unsatisfiedClients} / {maxUnsatisfiedClients}";
+    }
+
+    string GetClientByNumber(int number)
+    {
+        if (number == 1)
+        {
+            return "client";
+        }
+        return "clients";
     }
 }

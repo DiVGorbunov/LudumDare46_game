@@ -42,13 +42,22 @@ public class MultipleObjectiveDisplayMessage : MonoBehaviour
 
     string GetMessage()
     {
-        string message = "Satisfy " + objectiveSatisfyClients.minSatisfiedClients + " clients !";
+        string message = "Satisfy " + objectiveSatisfyClients.minSatisfiedClients + " " + GetClientByNumber(objectiveSatisfyClients.minSatisfiedClients) + " !";
 
         if (objectiveUnsatisfiedClients.maxUnsatisfiedClients > 0)
         {
-            message += " And don't let " + objectiveUnsatisfiedClients.maxUnsatisfiedClients + " clients be unsatisfied !";
+            message += " And don't let " + objectiveUnsatisfiedClients.maxUnsatisfiedClients + " " + GetClientByNumber(objectiveUnsatisfiedClients.maxUnsatisfiedClients) + " be unsatisfied !";
         }
 
         return message;
+    }
+
+    string GetClientByNumber(int number)
+    {
+        if (number == 1)
+        {
+            return "client";
+        }
+        return "clients";
     }
 }
