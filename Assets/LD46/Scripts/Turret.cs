@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
     public GameObject WeaponPrefab;
     public Transform WeaponSocket;
     public Transform PlayerSocket;
+    public FruitBucket FruitBucket;
     private WeaponController controller;
 
     public float minXRotation = -40;
@@ -27,7 +26,11 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = Instantiate<GameObject>(WeaponPrefab, WeaponSocket).GetComponent<WeaponController>();
+        var weaponPrefab = Instantiate<GameObject>(WeaponPrefab, WeaponSocket);
+        var cartLauncher = weaponPrefab.GetComponentInChildren<CartLauncherWeaponController>();
+        cartLauncher.RegisterFruitBucket(FruitBucket);
+
+        controller = weaponPrefab.GetComponent<WeaponController>();
         controller.owner = this.gameObject;
     }
 

@@ -215,6 +215,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &159733511 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6181432755127690201, guid: 4d85693edddcef842b31fbf5695833cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 2105910548}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea09baa44fa5e445a4218198d63350e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &383560274
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +476,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 2367664640008867034, guid: e7eae1afec295514b803f4c3c4cb6eb8,
+        type: 3}
+      propertyPath: FruitBucket
+      value: 
+      objectReference: {fileID: 159733511}
     - target: {fileID: 7644520122709303359, guid: e7eae1afec295514b803f4c3c4cb6eb8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -770,7 +787,7 @@ PrefabInstance:
     - target: {fileID: 6181432755790203477, guid: 4d85693edddcef842b31fbf5695833cc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6181432755790203477, guid: 4d85693edddcef842b31fbf5695833cc,
         type: 3}
@@ -1100,7 +1117,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2729281214538404670
 GameObject:

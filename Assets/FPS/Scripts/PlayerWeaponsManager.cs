@@ -102,11 +102,7 @@ public class PlayerWeaponsManager : MonoBehaviour
         }
         SwitchWeapon(true);
 
-        if (!m_Turret)
-        {
-            m_Turret = GameObject.Find("Turret").GetComponent<Turret>();
-        }
-        
+        EnsureTurret();
     }
 
     private void Update()
@@ -484,12 +480,22 @@ public class PlayerWeaponsManager : MonoBehaviour
 
     public WeaponController GetActiveWeapon()
     {
+        EnsureTurret();
+
         if (m_Turret)
         {
             return m_Turret.GetWeapon();
         }
 
         return GetWeaponAtSlotIndex(activeWeaponIndex);
+    }
+
+    private void EnsureTurret()
+    {
+        if (m_Turret == null)
+        {
+            m_Turret = GameObject.Find("Turret").GetComponent<Turret>();
+        }
     }
 
     public Turret GetTurret()

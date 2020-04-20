@@ -17,7 +17,8 @@ public class CartUIHandler : MonoBehaviour
 
     void SetActiveCart(bool isActive)
     {
-        FruitManager.SetActive(isActive);
+        //FruitManager.SetActive(isActive);
+        FruitManager.GetComponent<Canvas>().enabled = isActive;
         Cursor.visible = isActive;
 
         if (isActive)
