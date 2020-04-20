@@ -9,6 +9,10 @@ public class ClientGenerator : MonoBehaviour
     public Vector3 clientTransformScale = new Vector3(1f, 1f, 1f);
     public int placementAttempts = 5;
     public bool randomizeHealth = false;
+
+    public float[] fruitNumberProbabilities = { 0.34f, 0.33f, 033f };
+    public bool useDifficultyManager = true;
+
     public UnityAction onClientSatisfy;
     public UnityAction onClientUnsatisfy;
 
@@ -30,6 +34,7 @@ public class ClientGenerator : MonoBehaviour
     private void ConfigureNewClient(GameObject newClient)
     {
         var newClientController = newClient.GetComponent<ClientController>();
+        newClientController.fruitNumberProbabilities = fruitNumberProbabilities;
 
         if (randomizeHealth)
         {
