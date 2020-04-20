@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Client
   - FruitManager
+  - ClientSpawn
   layers:
   - Default
   - TransparentFX

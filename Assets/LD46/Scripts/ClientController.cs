@@ -46,10 +46,25 @@ public class ClientController : MonoBehaviour
         var fruitController = GetComponentInChildren<CanvasFruitController>();
         if (fruitController != null)
         {
-            int fruitNumber = Mathf.RoundToInt(Random.value * 2f);
-            Fruits = FruitManager.Instance.GetRandomFruits(fruitNumber + 1);
+            //int fruitNumber = Mathf.RoundToInt(Random.value * 2f);
+            //Fruits = FruitManager.Instance.GetRandomFruits(fruitNumber + 1);
+            Fruits = GenerateByLevel();
             fruitController.Generate(Fruits);
         }
+    }
+
+    Fruit[] GenerateByLevel()
+    {
+        Fruit[] temp = null;
+        switch (GameLogic.Instance().LevelId)
+        {
+            case 1:
+            case 2:
+                temp = FruitManager.Instance.GetRandomFruits(1);
+                break;
+        }
+
+        return temp;
     }
 
     public void RandomizeHealth()

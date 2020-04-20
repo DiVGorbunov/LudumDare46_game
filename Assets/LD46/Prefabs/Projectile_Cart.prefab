@@ -194,8 +194,7 @@ MonoBehaviour:
   root: {fileID: 106790115311484948}
   tip: {fileID: 106790115311484948}
   maxLifeTime: 5
-  impactVFX: {fileID: 4260779743739990948, guid: bbe6bdea7cd168e428a309e9eb2e728b,
-    type: 3}
+  impactVFX: {fileID: 0}
   impactVFXLifetime: 5
   impactVFXSpawnOffset: 0.1
   impactSFXClip: {fileID: 8300000, guid: cba089de3eef16d46baeda4077140a74, type: 3}
@@ -271,7 +270,7 @@ MonoBehaviour:
   root: {fileID: 106790115311484948}
   tip: {fileID: 106790115311484948}
   maxLifeTime: 5
-  impactVFX: {fileID: 4260779743739990948, guid: bbe6bdea7cd168e428a309e9eb2e728b,
+  impactVFX: {fileID: 4260779743739990948, guid: 3d43b0a0ad12856478e8d6ba5c77f110,
     type: 3}
   impactVFXLifetime: 5
   impactVFXSpawnOffset: 0.1
