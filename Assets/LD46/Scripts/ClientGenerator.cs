@@ -7,10 +7,10 @@ public class ClientGenerator : MonoBehaviour
     public BoxCollider[] surfaces;
     public Vector3 clientTransformScale = new Vector3(1f, 1f, 1f);
     public int placementAttempts = 5;
-    public bool randomizeHealth = false;
 
     public int number = 10;
     public float[] fruitNumberProbabilities = { 0.34f, 0.33f, 033f };
+    public (float, float) clientTimelifeGaussian = (60f, 0f);
     public bool useDifficultyManager = true;
 
     public UnityAction onClientSatisfy;
@@ -19,6 +19,7 @@ public class ClientGenerator : MonoBehaviour
     void Start()
     {
         number = useDifficultyManager ? DifficultyManager.Instance.GetNumberOfClients() : number;
+        clientTimelifeGaussian = useDifficultyManager ? DifficultyManager.Instance.GetClientTimelifeGaussian() : clientTimelifeGaussian;
         for (int i = 0; i < number; i++)
         {
             Vector3 newClientPosition;
@@ -39,10 +40,9 @@ public class ClientGenerator : MonoBehaviour
             DifficultyManager.Instance.GetClientFruitNumberProbs() :
             fruitNumberProbabilities;
 
-        if (randomizeHealth)
-        {
-            newClientController.SetHealth(60.0f);
-        }
+        var health = NextGaussian(clientTimelifeGaussian.Item1, clientTimelifeGaussian.Item2);
+        Debug.Log("Health: " + health);
+        newClientController.SetHealth(health);
 
         newClientController.onUnsatisfy += () =>
         {
@@ -109,5 +109,25 @@ public class ClientGenerator : MonoBehaviour
         }
 
         return false;
+    }
+
+    public static float NextGaussian()
+    {
+        float v1, v2, s;
+        do
+        {
+            v1 = 2.0f * Random.Range(0f, 1f) - 1.0f;
+            v2 = 2.0f * Random.Range(0f, 1f) - 1.0f;
+            s = v1 * v1 + v2 * v2;
+        } while (s >= 1.0f || s == 0f);
+
+        s = Mathf.Sqrt((-2.0f * Mathf.Log(s)) / s);
+
+        return v1 * s;
+    }
+
+    public static float NextGaussian(float mean, float standardDeviation)
+    {
+        return mean + NextGaussian() * standardDeviation;
     }
 }

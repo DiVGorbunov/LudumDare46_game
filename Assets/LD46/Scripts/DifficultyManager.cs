@@ -16,6 +16,8 @@
 
     public int CurrentLevel { get; private set; }
 
+    public bool IsMaxLevel => CurrentLevel == 4;
+
     private DifficultyManager()
     {
         CurrentLevel = 0;
@@ -91,6 +93,23 @@
                 return 1;
             default:
                 return 1;
+        }
+    }
+
+    public (float, float) GetClientTimelifeGaussian()
+    {
+        switch (CurrentLevel)
+        {
+            case 0:
+                return ( 60f, 10f );
+            case 1:
+                return ( 45f, 5f);
+            case 2:
+                return ( 45f, 5f);
+            case 3:
+                return ( 43f, 5f);
+            default:
+                return ( 40f, 3f);
         }
     }
 }
