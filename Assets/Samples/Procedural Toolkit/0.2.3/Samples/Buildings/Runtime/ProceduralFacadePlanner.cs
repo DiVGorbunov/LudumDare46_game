@@ -63,8 +63,9 @@ namespace ProceduralToolkit.Samples.Buildings
             };
             constructors[PanelType.Balcony] = new List<Func<ILayoutElement>>
             {
-                () => new ProceduralBalcony(palette.wallColor, palette.frameColor, palette.glassColor),
-                () => new ProceduralBalconyGlazed(palette.wallColor, palette.frameColor, palette.glassColor, palette.roofColor)
+                // () => new ProceduralBalcony(palette.wallColor, palette.frameColor, palette.glassColor),
+                () => new ProceduralBalcony(palette.wallColor, palette.frameColor, palette.glassColor)
+                // () => new ProceduralBalconyGlazed(palette.wallColor, palette.frameColor, palette.glassColor, palette.roofColor)
             };
             constructors[PanelType.Entrance] = new List<Func<ILayoutElement>>
             {
@@ -95,7 +96,7 @@ namespace ProceduralToolkit.Samples.Buildings
         private ILayout PlanNormalFacade(float facadeWidth, int floors, bool hasAttic, bool leftIsConvex, bool rightIsConvex)
         {
             List<PanelSize> panelSizes = DivideFacade(facadeWidth, leftIsConvex, rightIsConvex, out float remainder);
-            bool hasBalconies = RandomE.Chance(0.5f);
+            bool hasBalconies = false;
 
             var vertical = CreateNormalFacadeVertical(panelSizes, 0, panelSizes.Count, floors, hasAttic, hasBalconies);
             if (remainder > Geometry.Epsilon)
@@ -114,7 +115,7 @@ namespace ProceduralToolkit.Samples.Buildings
             bool rightIsConvex)
         {
             List<PanelSize> panelSizes = DivideFacade(facadeWidth, leftIsConvex, rightIsConvex, out float remainder);
-            bool hasBalconies = RandomE.Chance(0.5f);
+            bool hasBalconies = true;
 
             commonConstructors[PanelType.Entrance] = constructors[PanelType.Entrance].GetRandom();
             commonConstructors[PanelType.EntranceWindow] = constructors[PanelType.EntranceWindow].GetRandom();
@@ -174,7 +175,7 @@ namespace ProceduralToolkit.Samples.Buildings
             vertical.Add(CreateHorizontal(panelSizes, from, to, socleHeight, constructors[PanelType.Socle]));
             for (int floorIndex = 0; floorIndex < floors; floorIndex++)
             {
-                if (floorIndex == 0 || !hasBalconies)
+                if (floorIndex == 0 || !(hasBalconies && (UnityEngine.Random.value >= 0.5) ))
                 {
                     vertical.Add(CreateHorizontal(panelSizes, from, to, floorHeight, constructors[PanelType.Window]));
                 }

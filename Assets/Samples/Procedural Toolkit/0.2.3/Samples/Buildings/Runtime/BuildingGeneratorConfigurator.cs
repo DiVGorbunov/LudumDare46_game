@@ -74,6 +74,17 @@ namespace ProceduralToolkit.Samples.Buildings
 
             if (building != null)
             {
+                // foreach (Transform child in transform)
+                // {                    
+                //     if (Application.isPlaying)
+                //     {
+                //         Destroy(building);
+                //     }
+                //     else
+                //     {
+                //         DestroyImmediate(building);
+                //     }
+                // }
                 if (Application.isPlaying)
                 {
                     Destroy(building);
@@ -89,7 +100,11 @@ namespace ProceduralToolkit.Samples.Buildings
             generator.SetRoofConstructor(roofConstructor);
             var foundationPolygon = foundationPolygons[currentPolygon];
             config.roofConfig.type = roofTypes[currentRoofType];
-            building = generator.Generate(foundationPolygon.vertices, config, this.transform).gameObject;
+            // building.
+            // building = GameObject.Instantiate(this.transform);
+            building = new GameObject("Building");
+            building.transform.SetParent(this.transform);
+            building = generator.Generate(foundationPolygon.vertices, config, building.transform).gameObject;
             
             var rect = Geometry.GetRect(foundationPolygon.vertices);
             float platformRadius = Geometry.GetCircumradius(rect) + platformRadiusOffset;
