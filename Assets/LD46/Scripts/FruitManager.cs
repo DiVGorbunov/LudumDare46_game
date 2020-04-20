@@ -98,9 +98,12 @@ public class FruitItem
 
 public enum Fruit
 {
+    Apple,
     Banana,
+    Cake,
+    Cherries,
+    Drink,
     Orange,
-    Avocado,
-    Cookie,
-    Cake
+    Pizza,
+    Watermelon
 }
