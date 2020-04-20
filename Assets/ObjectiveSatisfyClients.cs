@@ -3,6 +3,7 @@
 public class ObjectiveSatisfyClients : MonoBehaviour
 {
     public int minSatisfiedClients = 5;
+    public bool useDifficultyManager = true;
 
     private int _satisfiedClients = 0;
 
@@ -10,6 +11,8 @@ public class ObjectiveSatisfyClients : MonoBehaviour
 
     void Start()
     {
+        minSatisfiedClients = useDifficultyManager ? DifficultyManager.Instance.GetClientsToSatisfy() : minSatisfiedClients;
+
         m_Objective = GetComponent<Objective>();
         DebugUtility.HandleErrorIfNullGetComponent<Objective, ObjectiveSatisfyClients>(m_Objective, this, gameObject);
 

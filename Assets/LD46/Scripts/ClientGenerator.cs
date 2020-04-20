@@ -18,8 +18,8 @@ public class ClientGenerator : MonoBehaviour
 
     void Start()
     {
-        int numberOfPeople = useDifficultyManager ? DifficultyManager.Instance.GetNumberOfClients() : number;
-        for (int i = 0; i < numberOfPeople; i++)
+        number = useDifficultyManager ? DifficultyManager.Instance.GetNumberOfClients() : number;
+        for (int i = 0; i < number; i++)
         {
             Vector3 newClientPosition;
             if (TryGetNewClientPosition(out newClientPosition))
