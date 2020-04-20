@@ -3,13 +3,13 @@ using UnityEngine.Events;
 
 public class ClientGenerator : MonoBehaviour
 {
-    public int number = 10;
     public GameObject client;
     public BoxCollider[] surfaces;
     public Vector3 clientTransformScale = new Vector3(1f, 1f, 1f);
     public int placementAttempts = 5;
     public bool randomizeHealth = false;
 
+    public int number = 10;
     public float[] fruitNumberProbabilities = { 0.34f, 0.33f, 033f };
     public bool useDifficultyManager = true;
 
@@ -18,7 +18,8 @@ public class ClientGenerator : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < number; i++)
+        int numberOfPeople = useDifficultyManager ? DifficultyManager.Instance.GetNumberOfClients() : number;
+        for (int i = 0; i < numberOfPeople; i++)
         {
             Vector3 newClientPosition;
             if (TryGetNewClientPosition(out newClientPosition))

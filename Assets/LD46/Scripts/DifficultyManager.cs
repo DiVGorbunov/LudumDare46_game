@@ -42,4 +42,21 @@
                 return new[] { 0f, 0.0f, 1f };
         }
     }
+
+    public int GetNumberOfClients()
+    {
+        switch (CurrentLevel)
+        {
+            case 0:
+                return 5;
+            case 1:
+                return 7;
+            case 2:
+                return 7;
+            case 3:
+                return 12;
+            default:
+                return 12;
+        }
+    }
 }
