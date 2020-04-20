@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.28}
   m_SizeDelta: {x: 1, y: 0.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4438723023235524757
@@ -241,10 +241,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b6feafc5f61e2479ca5a03f2aeca35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 6260710813039963148}
-  healthBarImage: {fileID: 8840800491245123106}
-  healthBarPivot: {fileID: 3654977196682042358}
-  hideFullHealthBar: 0
+  secondsToLive: 10
+  delta: 1
+  fruitNumberProbabilities:
+  - 0.34
+  - 0.33
+  - 33
 --- !u!1 &1636168658712190042
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +535,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2, y: 1}
+  m_SizeDelta: {x: 3, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1931373126070666865
 Canvas:
