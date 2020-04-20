@@ -1411,7 +1411,7 @@ GameObject:
   - component: {fileID: 977534537854778965}
   - component: {fileID: 4090591037188103020}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: InventoryBlurBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: df569fa0658ed9d409e04bc8229a8b3e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78b177e34216d454b95dd488baf70486, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
