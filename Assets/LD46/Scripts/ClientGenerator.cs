@@ -32,7 +32,7 @@ public class ClientGenerator : MonoBehaviour
 
         if (randomizeHealth)
         {
-            newClientController.RandomizeHealth();
+            newClientController.SetHealth(60.0f);
         }
 
         newClientController.onUnsatisfy += () =>

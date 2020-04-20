@@ -2,6 +2,16 @@ using UnityEngine;
 
 public class FruitFactory : InventoryManager
 {
+
+    override protected void SetupStartSet()
+    {
+        int countToAdd = (Rows * Columns) - Inventory.Count;
+        for (int i = 0; i < countToAdd; i++)
+        {
+            var fruit = FruitManager.Instance.GetRandomFruit();
+            AddItemToInventory(FruitManager.Instance.GetFruitItem(fruit));
+        }
+    }
     private void Update()
     {
         if (
@@ -9,8 +19,13 @@ public class FruitFactory : InventoryManager
             Inventory.Count < Rows * Columns
         )
         {
-            var fruit = FruitManager.Instance.GetRandomFruit();
-            AddItemToInventory(FruitManager.Instance.GetFruitItem(fruit));
+            int countToAdd = (Rows * Columns) - Inventory.Count;
+            for (int i = 0; i < countToAdd; i++)
+            {
+                var fruit = FruitManager.Instance.GetRandomFruit();
+                AddItemToInventory(FruitManager.Instance.GetFruitItem(fruit));
+            }
+            
         }
     }
 }

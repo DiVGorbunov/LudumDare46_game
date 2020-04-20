@@ -54,10 +54,15 @@ public class ClientController : MonoBehaviour
 
     public void RandomizeHealth()
     {
+        SetHealth(Random.value * secondsToLive);
+    }
+
+    public void SetHealth(float seconds)
+    {
         var controller = GetComponent<ClientController>();
         if (controller != null)
         {
-            controller.secondsToLive += Random.value * secondsToLive;
+            controller.secondsToLive = seconds;
         }
     }
 
