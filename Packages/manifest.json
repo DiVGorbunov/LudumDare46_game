@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.syomus.proceduraltoolkit": "https://github.com/Syomus/ProceduralToolkit.git",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.2.2",
     "com.unity.collab-proxy": "1.2.16",
@@ -45,5 +46,11 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "com.syomus.proceduraltoolkit": {
+      "revision": "HEAD",
+      "hash": "f5c213b1ecbc6e6e6a73f96daf4c58cfec99f703"
+    }
   }
 }
