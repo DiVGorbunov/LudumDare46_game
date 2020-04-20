@@ -84,13 +84,13 @@
             case 0:
                 return 0;
             case 1:
-                return 2;
+                return 3;
             case 2:
-                return 0;
-            case 3:
                 return 2;
+            case 3:
+                return 1;
             default:
-                return 6;
+                return 1;
         }
     }
 }

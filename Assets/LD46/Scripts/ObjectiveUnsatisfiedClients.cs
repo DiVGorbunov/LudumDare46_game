@@ -12,9 +12,6 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
 
     void Start()
     {
-        m_Objective = GetComponent<Objective>();
-        DebugUtility.HandleErrorIfNullGetComponent<Objective, ObjectiveUnsatisfiedClients>(m_Objective, this, gameObject);
-
         maxUnsatisfiedClients = useDifficultyManager ? DifficultyManager.Instance.GetMaxClientsToBeUnsatisfied() : maxUnsatisfiedClients;
         if (maxUnsatisfiedClients > 0)
         {
@@ -22,14 +19,16 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
             DebugUtility.HandleErrorIfNullFindObject<ClientGenerator, ObjectiveUnsatisfiedClients>(clientGenerator, this);
             clientGenerator.onClientUnsatisfy += OnClientUnsatisfy;
 
+            m_Objective = GetComponent<Objective>();
+            DebugUtility.HandleErrorIfNullGetComponent<Objective, ObjectiveUnsatisfiedClients>(m_Objective, this, gameObject);
+
             if (string.IsNullOrEmpty(m_Objective.title))
                 m_Objective.title = $"Don't get more than {maxUnsatisfiedClients} unsatisfied {GetClientByNumber(maxUnsatisfiedClients)}.";
 
             if (string.IsNullOrEmpty(m_Objective.description))
                 m_Objective.description = GetUpdatedCounterAmount();
-        } else
-        {
-            m_Objective.Unregister();
+
+            m_Objective.Register();
         }
     }
 

@@ -17,7 +17,10 @@ public class LoadSceneButton : MonoBehaviour
 
     public void LoadTargetScene()
     {
-        DifficultyManager.Instance.MoveToNextLevel();
+        if (string.Compare(SceneManager.GetActiveScene().name, "WinScene", true) == 0)
+        {
+            DifficultyManager.Instance.MoveToNextLevel();
+        }
         SceneManager.LoadScene(sceneName);
     }
 }

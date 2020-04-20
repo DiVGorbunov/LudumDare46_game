@@ -25,6 +25,8 @@ public class ObjectiveSatisfyClients : MonoBehaviour
 
         if (string.IsNullOrEmpty(m_Objective.description))
             m_Objective.description = GetUpdatedCounterAmount();
+
+        m_Objective.Register();
     }
 
     void OnClientSatisfy()
