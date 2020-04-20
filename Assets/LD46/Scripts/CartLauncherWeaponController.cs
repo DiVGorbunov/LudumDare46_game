@@ -2,11 +2,11 @@
 
 public class CartLauncherWeaponController : WeaponController
 {
-    private FruitBucket fruitBucket;
+    private FruitBucket _fruitBucket;
 
-    void Start()
+    public void RegisterFruitBucket(FruitBucket fruitBucket)
     {
-        fruitBucket = FindObjectOfType<FruitBucket>();
+        _fruitBucket = fruitBucket;
     }
 
     override public void SpawnBullets()
@@ -17,10 +17,10 @@ public class CartLauncherWeaponController : WeaponController
             Vector3 shotDirection = GetShotDirectionWithinSpread(weaponMuzzle);
             ProjectileBase newProjectile = Instantiate(projectilePrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
             ProjectileCart cart = newProjectile.GetComponent<ProjectileCart>();
-            cart.SetItems(fruitBucket.GetBucketFruits());
+            cart.SetItems(_fruitBucket.GetBucketFruits());
             cart.onClientSatisfied += () =>
             {
-                fruitBucket.removeAllFruits();
+                _fruitBucket.removeAllFruits();
             };
 
             newProjectile.Shoot(this);
