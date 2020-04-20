@@ -33,6 +33,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             if (item.AddToBucket())
             {
                 fruitFactory.RemoveItemFromInventory(item.MyPlaceInHome);
+                fruitFactory.AddItemToInventory(FruitManager.Instance.GetFruitItem(FruitManager.Instance.GetRandomFruit()));
             }
             else
             {
