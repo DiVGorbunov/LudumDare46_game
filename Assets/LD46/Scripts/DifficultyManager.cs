@@ -76,4 +76,21 @@
                 return 6;
         }
     }
+
+    public int GetMaxClientsToBeUnsatisfied()
+    {
+        switch (CurrentLevel)
+        {
+            case 0:
+                return 0;
+            case 1:
+                return 2;
+            case 2:
+                return 0;
+            case 3:
+                return 2;
+            default:
+                return 6;
+        }
+    }
 }

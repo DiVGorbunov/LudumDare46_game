@@ -22,8 +22,15 @@ public class Objective : MonoBehaviour
     NotificationHUDManager m_NotificationHUDManager;
     ObjectiveHUDManger m_ObjectiveHUDManger;
 
+    private bool _unregister = false;
+
     void Start()
     {
+        if (_unregister)
+        {
+            return;
+        }
+
         // add this objective to the list contained in the objective manager
         ObjectiveManager objectiveManager = FindObjectOfType<ObjectiveManager>();
         DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, Objective>(objectiveManager, this);
@@ -53,6 +60,11 @@ public class Objective : MonoBehaviour
         // unregister this objective form both HUD managers
         m_ObjectiveHUDManger.UnregisterObjective(this);
         m_NotificationHUDManager.UnregisterObjective(this);
+    }
+
+    public void Unregister()
+    {
+        _unregister = true;
     }
 }
 

@@ -4,6 +4,7 @@
 public class ObjectiveUnsatisfiedClients : MonoBehaviour
 {
     public int maxUnsatisfiedClients = 5;
+    public bool useDifficultyManager = true;
 
     private int _unsatisfiedClients = 0;
 
@@ -14,20 +15,27 @@ public class ObjectiveUnsatisfiedClients : MonoBehaviour
         m_Objective = GetComponent<Objective>();
         DebugUtility.HandleErrorIfNullGetComponent<Objective, ObjectiveUnsatisfiedClients>(m_Objective, this, gameObject);
 
-        var clientGenerator = FindObjectOfType<ClientGenerator>();
-        DebugUtility.HandleErrorIfNullFindObject<ClientGenerator, ObjectiveUnsatisfiedClients>(clientGenerator, this);
-        clientGenerator.onClientUnsatisfy += OnClientUnsatisfy;
+        maxUnsatisfiedClients = useDifficultyManager ? DifficultyManager.Instance.GetMaxClientsToBeUnsatisfied() : maxUnsatisfiedClients;
+        if (maxUnsatisfiedClients > 0)
+        {
+            var clientGenerator = FindObjectOfType<ClientGenerator>();
+            DebugUtility.HandleErrorIfNullFindObject<ClientGenerator, ObjectiveUnsatisfiedClients>(clientGenerator, this);
+            clientGenerator.onClientUnsatisfy += OnClientUnsatisfy;
 
-        if (string.IsNullOrEmpty(m_Objective.title))
-            m_Objective.title = $"Don't get more than {maxUnsatisfiedClients} unsatisfied {GetClientByNumber(maxUnsatisfiedClients)}.";
+            if (string.IsNullOrEmpty(m_Objective.title))
+                m_Objective.title = $"Don't get more than {maxUnsatisfiedClients} unsatisfied {GetClientByNumber(maxUnsatisfiedClients)}.";
 
-        if (string.IsNullOrEmpty(m_Objective.description))
-            m_Objective.description = GetUpdatedCounterAmount();
+            if (string.IsNullOrEmpty(m_Objective.description))
+                m_Objective.description = GetUpdatedCounterAmount();
+        } else
+        {
+            m_Objective.Unregister();
+        }
     }
 
     void OnClientUnsatisfy()
     {
-        if (m_Objective.isCompleted)
+        if (m_Objective.isCompleted || maxUnsatisfiedClients == 0)
         {
             return;
         }

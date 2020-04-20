@@ -21,7 +21,7 @@ public class ObjectiveSatisfyClients : MonoBehaviour
         clientGenerator.onClientSatisfy += OnClientSatisfy;
 
         if (string.IsNullOrEmpty(m_Objective.title))
-            m_Objective.title = $"Satisfy {minSatisfiedClients} ${GetClientByNumber(minSatisfiedClients)} on the map.";
+            m_Objective.title = $"Satisfy {minSatisfiedClients} {GetClientByNumber(minSatisfiedClients)} on the map.";
 
         if (string.IsNullOrEmpty(m_Objective.description))
             m_Objective.description = GetUpdatedCounterAmount();
