@@ -17,6 +17,7 @@ public class LoadSceneButton : MonoBehaviour
 
     public void LoadTargetScene()
     {
+        DifficultyManager.Instance.MoveToNextLevel();
         SceneManager.LoadScene(sceneName);
     }
 }
