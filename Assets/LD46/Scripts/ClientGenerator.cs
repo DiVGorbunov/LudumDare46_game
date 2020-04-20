@@ -9,6 +9,7 @@ public class ClientGenerator : MonoBehaviour
     public Vector3 clientTransformScale = new Vector3(1f, 1f, 1f);
     public int placementAttempts = 5;
     public bool randomizeHealth = false;
+    public UnityAction onClientSatisfy;
     public UnityAction onClientUnsatisfy;
 
     void Start()
@@ -40,6 +41,13 @@ public class ClientGenerator : MonoBehaviour
             if (onClientUnsatisfy != null)
             {
                 onClientUnsatisfy.Invoke();
+            }
+        };
+        newClientController.onSatisfy += () =>
+        {
+            if (onClientSatisfy != null)
+            {
+                onClientSatisfy.Invoke();
             }
         };
     }

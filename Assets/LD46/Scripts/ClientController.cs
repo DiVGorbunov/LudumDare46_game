@@ -16,6 +16,7 @@ public class ClientController : MonoBehaviour
 
     public Fruit[] Fruits { get; private set; }
 
+    public UnityAction onSatisfy;
     public UnityAction onUnsatisfy;
 
     void Start()
@@ -78,6 +79,11 @@ public class ClientController : MonoBehaviour
 
         if (listCheck.Count == 0)
         {
+            if (onSatisfy != null)
+            {
+                onSatisfy.Invoke();
+            }
+
             Destroy(this.gameObject);
             return true;
         }
