@@ -34,7 +34,9 @@ public class ClientGenerator : MonoBehaviour
     private void ConfigureNewClient(GameObject newClient)
     {
         var newClientController = newClient.GetComponent<ClientController>();
-        newClientController.fruitNumberProbabilities = fruitNumberProbabilities;
+        newClientController.fruitNumberProbabilities = useDifficultyManager ?
+            DifficultyManager.Instance.GetClientFruitNumberProbs() :
+            fruitNumberProbabilities;
 
         if (randomizeHealth)
         {
