@@ -89,8 +89,8 @@ namespace ProceduralToolkit.Samples.Buildings
             generator.SetRoofConstructor(roofConstructor);
             var foundationPolygon = foundationPolygons[currentPolygon];
             config.roofConfig.type = roofTypes[currentRoofType];
-            building = generator.Generate(foundationPolygon.vertices, config).gameObject;
-
+            building = generator.Generate(foundationPolygon.vertices, config, this.transform).gameObject;
+            
             var rect = Geometry.GetRect(foundationPolygon.vertices);
             float platformRadius = Geometry.GetCircumradius(rect) + platformRadiusOffset;
             var platformDraft = Platform(platformRadius, platformHeight);
