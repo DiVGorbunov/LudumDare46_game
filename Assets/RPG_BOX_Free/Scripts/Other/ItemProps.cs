@@ -55,7 +55,7 @@ public class ItemProps : MonoBehaviour
         }
     }
 
-    public void AddToBucket()
+    public bool AddToBucket()
     {
 
         if (
@@ -65,13 +65,13 @@ public class ItemProps : MonoBehaviour
         {
             bucket.AddItemToInventory(MyItem);
             AccInv.RemoveItemFromInventory(MyPlaceInHome);
-
+            return true;
         }
         else if (MyHome == ItemHome.FruitBucket)
         {
             bucket.RemoveItemFromInventory(MyPlaceInHome);
         }
-
+        return false;
     }
 
     public void DestroyItem()

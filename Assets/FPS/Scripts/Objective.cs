@@ -22,7 +22,22 @@ public class Objective : MonoBehaviour
     NotificationHUDManager m_NotificationHUDManager;
     ObjectiveHUDManger m_ObjectiveHUDManger;
 
-    void Start()
+    public void UpdateObjective(string descriptionText, string counterText, string notificationText)
+    {
+        onUpdateObjective.Invoke(new UnityActionUpdateObjective(this, descriptionText, counterText, false, notificationText));
+    }
+
+    public void CompleteObjective(string descriptionText, string counterText, string notificationText)
+    {
+        isCompleted = true;
+        onUpdateObjective.Invoke(new UnityActionUpdateObjective(this, descriptionText, counterText, true, notificationText));
+
+        // unregister this objective form both HUD managers
+        m_ObjectiveHUDManger.UnregisterObjective(this);
+        m_NotificationHUDManager.UnregisterObjective(this);
+    }
+
+    public void Register()
     {
         // add this objective to the list contained in the objective manager
         ObjectiveManager objectiveManager = FindObjectOfType<ObjectiveManager>();
@@ -38,21 +53,6 @@ public class Objective : MonoBehaviour
         m_NotificationHUDManager = FindObjectOfType<NotificationHUDManager>();
         DebugUtility.HandleErrorIfNullFindObject<NotificationHUDManager, Objective>(m_NotificationHUDManager, this);
         m_NotificationHUDManager.RegisterObjective(this);
-    }
-
-    public void UpdateObjective(string descriptionText, string counterText, string notificationText)
-    {
-        onUpdateObjective.Invoke(new UnityActionUpdateObjective(this, descriptionText, counterText, false, notificationText));
-    }
-
-    public void CompleteObjective(string descriptionText, string counterText, string notificationText)
-    {
-        isCompleted = true;
-        onUpdateObjective.Invoke(new UnityActionUpdateObjective(this, descriptionText, counterText, true, notificationText));
-
-        // unregister this objective form both HUD managers
-        m_ObjectiveHUDManger.UnregisterObjective(this);
-        m_NotificationHUDManager.UnregisterObjective(this);
     }
 }
 

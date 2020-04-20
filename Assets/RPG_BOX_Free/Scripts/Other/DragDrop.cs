@@ -30,8 +30,15 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     {
         if (isMouseOnBucket(eventData))
         {
-            item.AddToBucket();
-            fruitFactory.RemoveItemFromInventory(item.MyPlaceInHome);
+            if (item.AddToBucket())
+            {
+                fruitFactory.RemoveItemFromInventory(item.MyPlaceInHome);
+                fruitFactory.AddItemToInventory(FruitManager.Instance.GetFruitItem(FruitManager.Instance.GetRandomFruit()));
+            }
+            else
+            {
+                item.transform.position = startPosition;
+            }
         }
         else
         {

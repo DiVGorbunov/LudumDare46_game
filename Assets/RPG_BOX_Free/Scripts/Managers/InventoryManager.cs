@@ -61,6 +61,11 @@ public class InventoryManager : MonoBehaviour
         StartCoroutine(AssignXYPos());
     }
 
+    protected virtual void SetupStartSet()
+    {
+
+    }
+
     IEnumerator AssignXYPos()
     {
         yield return new WaitForEndOfFrame();
@@ -85,6 +90,7 @@ public class InventoryManager : MonoBehaviour
             X2Y1 = SlotsParent.GetChild(1);
             ResetPosAndOccList();
         }
+        SetupStartSet();
     }
 
     public void ChangeSprites()//change sprites of Background and Slot

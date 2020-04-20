@@ -16,6 +16,8 @@ public class ClientController : MonoBehaviour
 
     public Fruit[] Fruits { get; private set; }
 
+    public float[] fruitNumberProbabilities = { 0.34f, 0.33f, 033f };
+    public UnityAction onSatisfy;
     public UnityAction onUnsatisfy;
 
     void Start()
@@ -46,18 +48,37 @@ public class ClientController : MonoBehaviour
         var fruitController = GetComponentInChildren<CanvasFruitController>();
         if (fruitController != null)
         {
-            int fruitNumber = Mathf.RoundToInt(Random.value * 2f);
-            Fruits = FruitManager.Instance.GetRandomFruits(fruitNumber + 1);
+            int fruitNumber = GetFruitNumber();
+            Fruits = FruitManager.Instance.GetRandomFruits(fruitNumber);
             fruitController.Generate(Fruits);
         }
     }
 
+    private int GetFruitNumber()
+    {
+        var random = Random.value;
+        for (int i = 0; i < fruitNumberProbabilities.Length; i++)
+        {
+            if (random <= fruitNumberProbabilities[i])
+            {
+                return i + 1;
+            }
+            random -= fruitNumberProbabilities[i];
+        }
+        return fruitNumberProbabilities.Length;
+    }
+
     public void RandomizeHealth()
+    {
+        SetHealth(Random.value * secondsToLive);
+    }
+
+    public void SetHealth(float seconds)
     {
         var controller = GetComponent<ClientController>();
         if (controller != null)
         {
-            controller.secondsToLive += Random.value * secondsToLive;
+            controller.secondsToLive = seconds;
         }
     }
 
@@ -73,6 +94,11 @@ public class ClientController : MonoBehaviour
 
         if (listCheck.Count == 0)
         {
+            if (onSatisfy != null)
+            {
+                onSatisfy.Invoke();
+            }
+
             Destroy(this.gameObject);
             return true;
         }
