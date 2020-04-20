@@ -41,7 +41,6 @@ public class ClientGenerator : MonoBehaviour
             fruitNumberProbabilities;
 
         var health = NextGaussian(clientTimelifeGaussian.Item1, clientTimelifeGaussian.Item2);
-        Debug.Log("Health: " + health);
         newClientController.SetHealth(health);
 
         newClientController.onUnsatisfy += () =>
