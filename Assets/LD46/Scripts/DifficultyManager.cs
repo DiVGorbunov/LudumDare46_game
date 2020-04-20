@@ -25,7 +25,10 @@
 
     public void MoveToNextLevel()
     {
-        CurrentLevel++;
+        if (!IsMaxLevel)
+        {
+            CurrentLevel++;
+        }
     }
 
     public float[] GetClientFruitNumberProbs()

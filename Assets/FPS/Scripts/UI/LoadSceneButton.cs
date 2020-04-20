@@ -1,10 +1,36 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class LoadSceneButton : MonoBehaviour
 {
     public string sceneName = "";
+
+    private bool IsWinScene
+    {
+        get
+        {
+            return string.Compare(SceneManager.GetActiveScene().name, "WinScene", true) == 0;
+        }
+    }
+
+    private void Start()
+    {
+        if (IsWinScene && DifficultyManager.Instance.IsMaxLevel)
+        {
+            var textMesh = GetComponentInChildren<TextMeshProUGUI>();
+            if (textMesh.text == "Continue")
+            {
+                textMesh.text = "Play Again";
+                var titleTextMesh = gameObject.transform.parent.GetComponentInChildren<TextMeshProUGUI>();
+                if (titleTextMesh != null)
+                {
+                    titleTextMesh.text = "You WIN the Game, congratulations!";
+                }
+            }
+        }
+    }
 
     private void Update()
     {
@@ -17,7 +43,7 @@ public class LoadSceneButton : MonoBehaviour
 
     public void LoadTargetScene()
     {
-        if (string.Compare(SceneManager.GetActiveScene().name, "WinScene", true) == 0)
+        if (IsWinScene)
         {
             DifficultyManager.Instance.MoveToNextLevel();
         }
