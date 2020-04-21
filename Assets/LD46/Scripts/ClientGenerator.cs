@@ -18,6 +18,16 @@ public class ClientGenerator : MonoBehaviour
 
     void Start()
     {
+        Vector3 PlayerPosition;
+        Turret turret = FindObjectOfType<Turret>();
+        if (turret)
+        {
+            PlayerPosition = turret.gameObject.transform.position;
+        }
+        else
+        {
+            PlayerPosition = GameObject.FindWithTag("Player").transform.position;
+        }
         number = useDifficultyManager ? DifficultyManager.Instance.GetNumberOfClients() : number;
         clientTimelifeGaussian = useDifficultyManager ? DifficultyManager.Instance.GetClientTimelifeGaussian() : clientTimelifeGaussian;
         for (int i = 0; i < number; i++)
@@ -25,9 +35,10 @@ public class ClientGenerator : MonoBehaviour
             Vector3 newClientPosition;
             if (TryGetNewClientPosition(out newClientPosition))
             {
-                var newClient = Instantiate(client, newClientPosition, Quaternion.identity, gameObject.transform);
-
+                Quaternion quat = Quaternion.LookRotation(newClientPosition - PlayerPosition, Vector3.up);
+                var newClient = Instantiate(client, newClientPosition, quat, gameObject.transform);
                 newClient.transform.localScale = clientTransformScale;
+
                 ConfigureNewClient(newClient);
             }
         }
