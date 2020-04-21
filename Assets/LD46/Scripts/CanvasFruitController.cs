@@ -34,4 +34,11 @@ public class CanvasFruitController : MonoBehaviour
             newFruitRectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, fruitXOffset + i * (fruitDimension + _fruitOffset), fruitDimension);
         }
     }
+
+    private void Update()
+    {
+        // rotate r to face the camera/player
+        gameObject.transform.LookAt(Camera.main.transform.position);
+               
+    }
 }
