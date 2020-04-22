@@ -31,6 +31,11 @@
         }
     }
 
+    public void ResetLevel()
+    {
+        CurrentLevel = 0;
+    }
+
     public float[] GetClientFruitNumberProbs()
     {
         switch (CurrentLevel)
