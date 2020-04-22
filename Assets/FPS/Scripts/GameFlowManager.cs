@@ -12,6 +12,8 @@ public class GameFlowManager : MonoBehaviour
     [Header("Win")]
     [Tooltip("This string has to be the name of the scene you want to load when winning")]
     public string winSceneName = "WinScene";
+    [Tooltip("This string has to be the name of the scene you want to load when continuing to play")]
+    public string continueSceneName = "TurretScene";
     [Tooltip("Duration of delay before the fade-to-black, if winning")]
     public float delayBeforeFadeToBlack = 4f;
     [Tooltip("Duration of delay before the win message")]
@@ -64,10 +66,7 @@ public class GameFlowManager : MonoBehaviour
         else
         {
             if (m_ObjectiveManager.AreAllObjectivesCompleted())
-            {
-                DifficultyManager.Instance.MoveToNextLevel();
                 EndGame(true);
-            }
 
             // Test if player died
             if (m_Player.isDead ||
@@ -87,7 +86,14 @@ public class GameFlowManager : MonoBehaviour
         endGameFadeCanvasGroup.gameObject.SetActive(true);
         if (win)
         {
-            m_SceneToLoad = winSceneName;
+            if (DifficultyManager.Instance.IsMaxLevel)
+            {
+                m_SceneToLoad = winSceneName;
+            } else
+            {
+                DifficultyManager.Instance.MoveToNextLevel();
+                m_SceneToLoad = continueSceneName;
+            }
             m_TimeLoadEndGameScene = Time.time + endSceneLoadDelay + delayBeforeFadeToBlack;
 
             // play a sound on win

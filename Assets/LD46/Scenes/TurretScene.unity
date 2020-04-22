@@ -3192,7 +3192,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endSceneLoadDelay: 1
   endGameFadeCanvasGroup: {fileID: 7142924396258720985}
-  winSceneName: TurretScene
+  winSceneName: WinScene
+  continueSceneName: TurretScene
   delayBeforeFadeToBlack: 0
   delayBeforeWinMessage: 0
   victorySound: {fileID: 8300000, guid: a533219934975884e81c1add37af9930, type: 3}
