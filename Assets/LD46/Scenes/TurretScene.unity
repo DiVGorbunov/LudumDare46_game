@@ -3190,11 +3190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1fea5cb3ddbc249bd0181e6766db68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endSceneLoadDelay: 4
+  endSceneLoadDelay: 1
   endGameFadeCanvasGroup: {fileID: 7142924396258720985}
-  winSceneName: WinScene
-  delayBeforeFadeToBlack: 4
-  delayBeforeWinMessage: 1
+  winSceneName: TurretScene
+  delayBeforeFadeToBlack: 0
+  delayBeforeWinMessage: 0
   victorySound: {fileID: 8300000, guid: a533219934975884e81c1add37af9930, type: 3}
   WinGameMessagePrefab: {fileID: 3003312392959327722, guid: f981094eb6c2a6f4f8a56f85c606e3d1,
     type: 3}

@@ -64,7 +64,10 @@ public class GameFlowManager : MonoBehaviour
         else
         {
             if (m_ObjectiveManager.AreAllObjectivesCompleted())
+            {
+                DifficultyManager.Instance.MoveToNextLevel();
                 EndGame(true);
+            }
 
             // Test if player died
             if (m_Player.isDead ||
