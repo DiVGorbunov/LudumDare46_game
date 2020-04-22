@@ -5,6 +5,11 @@ public class FruitManager
 {
     private Fruit[] _fruits;
     private IDictionary<Fruit, Sprite> _spriteDictionary;
+    private int _fruitTypes;
+
+    private List<Fruit> _remainingFruits;
+    private int[] _remainingFruitsCounts;
+    private bool _isRemaningFruitsInitialized;
 
     private static FruitManager _instance;
     public static FruitManager Instance
@@ -36,17 +41,37 @@ public class FruitManager
                 }
             }
         }
+
+        _fruitTypes = _fruits.Length;
+        _remainingFruitsCounts = new int[_fruits.Length];
     }
 
     public Fruit GetRandomFruit()
     {
-        int index = Mathf.FloorToInt(Random.value * _fruits.Length);
-        if (index == _fruits.Length)
+        int index = Mathf.FloorToInt(Random.value * _fruitTypes);
+        if (index == _fruitTypes)
         {
             index--;
         }
 
         return _fruits[index];
+    }
+
+    public Fruit GetRandomRemainingFruitItem()
+    {
+        if (!_isRemaningFruitsInitialized)
+        {
+            _remainingFruits = new List<Fruit>();
+            for (int i = 0; i < _remainingFruitsCounts.Length; i++)
+            {
+                if (_remainingFruitsCounts[i] > 0)
+                {
+                    _remainingFruits.Add((Fruit)i);
+                }
+            }
+        }
+
+        return _remainingFruits[Random.Range(0, _remainingFruits.Count)];
     }
 
     public Fruit[] GetRandomFruits(int number)
@@ -55,6 +80,7 @@ public class FruitManager
         for (int i = 0; i < number; i++)
         {
             fruits[i] = GetRandomFruit();
+            _remainingFruitsCounts[(int)fruits[i]]++;
         }
         return fruits;
     }
@@ -87,6 +113,31 @@ public class FruitManager
         }
 
         return fruitItems;
+    }
+
+    public void SetFruitTypes(int fruitTypes)
+    {
+        if (fruitTypes > 0 && fruitTypes <= _fruits.Length)
+        {
+            _fruitTypes = fruitTypes;
+            for (int i = 0; i < _fruits.Length; i++)
+            {
+                _remainingFruitsCounts[i] = 0;
+            }
+            _isRemaningFruitsInitialized = false;
+        }
+    }
+
+    public void DropRemainingFruits(Fruit[] fruits)
+    {
+        foreach (var fruit in fruits)
+        {
+            _remainingFruitsCounts[(int)fruit]--;
+            if (_remainingFruitsCounts[(int)fruit] == 0)
+            {
+                _remainingFruits.Remove(fruit);
+            }
+        }
     }
 }
 

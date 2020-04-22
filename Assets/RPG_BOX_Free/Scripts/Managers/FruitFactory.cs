@@ -8,7 +8,7 @@ public class FruitFactory : InventoryManager
         int countToAdd = (Rows * Columns) - Inventory.Count;
         for (int i = 0; i < countToAdd; i++)
         {
-            var fruit = FruitManager.Instance.GetRandomFruit();
+            var fruit = FruitManager.Instance.GetRandomRemainingFruitItem();
             AddItemToInventory(FruitManager.Instance.GetFruitItem(fruit));
         }
     }
@@ -22,7 +22,7 @@ public class FruitFactory : InventoryManager
             int countToAdd = (Rows * Columns) - Inventory.Count;
             for (int i = 0; i < countToAdd; i++)
             {
-                var fruit = FruitManager.Instance.GetRandomFruit();
+                var fruit = FruitManager.Instance.GetRandomRemainingFruitItem();
                 AddItemToInventory(FruitManager.Instance.GetFruitItem(fruit));
             }
             

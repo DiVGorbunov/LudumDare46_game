@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections;
 
 public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
@@ -33,7 +31,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             if (item.AddToBucket())
             {
                 fruitFactory.RemoveItemFromInventory(item.MyPlaceInHome);
-                fruitFactory.AddItemToInventory(FruitManager.Instance.GetFruitItem(FruitManager.Instance.GetRandomFruit()));
+                fruitFactory.AddItemToInventory(FruitManager.Instance.GetFruitItem(FruitManager.Instance.GetRandomRemainingFruitItem()));
             }
             else
             {

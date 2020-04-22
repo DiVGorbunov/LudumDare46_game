@@ -29,6 +29,8 @@ public class ClientController : MonoBehaviour
             {
                 onUnsatisfy.Invoke();
             }
+
+            FruitManager.Instance.DropRemainingFruits(Fruits);
             Destroy(gameObject);
         };
 
@@ -98,6 +100,8 @@ public class ClientController : MonoBehaviour
             {
                 onSatisfy.Invoke();
             }
+
+            FruitManager.Instance.DropRemainingFruits(Fruits);
 
             Destroy(this.gameObject);
             return true;
