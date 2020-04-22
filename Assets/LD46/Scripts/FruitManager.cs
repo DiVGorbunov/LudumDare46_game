@@ -5,6 +5,7 @@ public class FruitManager
 {
     private Fruit[] _fruits;
     private IDictionary<Fruit, Sprite> _spriteDictionary;
+    private int _fruitTypes;
 
     private static FruitManager _instance;
     public static FruitManager Instance
@@ -36,12 +37,14 @@ public class FruitManager
                 }
             }
         }
+
+        _fruitTypes = _fruits.Length;
     }
 
     public Fruit GetRandomFruit()
     {
-        int index = Mathf.FloorToInt(Random.value * _fruits.Length);
-        if (index == _fruits.Length)
+        int index = Mathf.FloorToInt(Random.value * _fruitTypes);
+        if (index == _fruitTypes)
         {
             index--;
         }
@@ -87,6 +90,14 @@ public class FruitManager
         }
 
         return fruitItems;
+    }
+
+    public void SetFruitTypes(int fruitTypes)
+    {
+        if (fruitTypes > 0 && fruitTypes <= _fruits.Length)
+        {
+            _fruitTypes = fruitTypes;
+        }
     }
 }
 

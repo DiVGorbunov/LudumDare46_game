@@ -12,6 +12,7 @@ public class ClientGenerator : MonoBehaviour
     public float[] fruitNumberProbabilities = { 0.34f, 0.33f, 033f };
     public (float, float) clientTimelifeGaussian = (60f, 0f);
     public bool useDifficultyManager = true;
+    public int fruitTypes = 5;
 
     public UnityAction onClientSatisfy;
     public UnityAction onClientUnsatisfy;
@@ -30,6 +31,8 @@ public class ClientGenerator : MonoBehaviour
         }
         number = useDifficultyManager ? DifficultyManager.Instance.GetNumberOfClients() : number;
         clientTimelifeGaussian = useDifficultyManager ? DifficultyManager.Instance.GetClientTimelifeGaussian() : clientTimelifeGaussian;
+        fruitTypes = useDifficultyManager ? DifficultyManager.Instance.GetFruitTypes() : fruitTypes;
+        FruitManager.Instance.SetFruitTypes(fruitTypes);
         for (int i = 0; i < number; i++)
         {
             Vector3 newClientPosition;
