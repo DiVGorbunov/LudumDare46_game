@@ -91,7 +91,6 @@ GameObject:
   - component: {fileID: 106790115311484949}
   - component: {fileID: 106790115311484954}
   - component: {fileID: 6867404450943131836}
-  - component: {fileID: 5542020336735652036}
   - component: {fileID: 2223418409092269418}
   - component: {fileID: 6841512634174719543}
   - component: {fileID: -6242089841290583787}
@@ -178,36 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1962d3d25050a4a44819b089007baf39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5542020336735652036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106790115311484953}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de99b30e1e73fd14e98cc5371da25d12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.2
-  root: {fileID: 106790115311484948}
-  tip: {fileID: 106790115311484948}
-  maxLifeTime: 5
-  impactVFX: {fileID: 0}
-  impactVFXLifetime: 5
-  impactVFXSpawnOffset: 0.1
-  impactSFXClip: {fileID: 8300000, guid: cba089de3eef16d46baeda4077140a74, type: 3}
-  hittableLayers:
-    serializedVersion: 2
-    m_Bits: 3383
-  speed: 30
-  gravityDownAcceleration: 10
-  trajectoryCorrectionDistance: -1
-  inheritWeaponVelocity: 0
-  damage: 40
-  areaOfDamage: {fileID: 0}
-  radiusColor: {r: 0, g: 1, b: 1, a: 0.49803922}
 --- !u!114 &2223418409092269418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,10 +197,10 @@ MonoBehaviour:
     max: 0.2
   speed:
     min: 20
-    max: 40
+    max: 50
   gravityDownAcceleration:
     min: 10
-    max: 3
+    max: 15
   areaOfEffectDistance:
     min: 5
     max: 5
