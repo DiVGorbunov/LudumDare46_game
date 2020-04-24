@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TurretPlayerInputHandler : PlayerInputHandler
 {
+    public static TurretPlayerInputHandler instance = null;
     override protected void Start()
     {
         base.Start();
+        instance = this;
     }
 
 

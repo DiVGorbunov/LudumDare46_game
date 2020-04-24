@@ -34,12 +34,12 @@ public class CartUIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown(GameConstants.k_ButtonNameShowCart))
+        if (TurretPlayerInputHandler.instance.CanProcessInput() && Input.GetButtonDown(GameConstants.k_ButtonNameShowCart))
         {
             SetActiveCart(true);
         }
 
-        if (Input.GetButtonUp(GameConstants.k_ButtonNameShowCart))
+        if (TurretPlayerInputHandler.instance.CanProcessInput() && Input.GetButtonUp(GameConstants.k_ButtonNameShowCart))
         {
             SetActiveCart(false);
         }
