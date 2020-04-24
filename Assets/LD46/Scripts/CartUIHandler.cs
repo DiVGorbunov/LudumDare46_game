@@ -39,7 +39,7 @@ public class CartUIHandler : MonoBehaviour
             SetActiveCart(true);
         }
 
-        if (TurretPlayerInputHandler.instance.CanProcessInput() && Input.GetButtonUp(GameConstants.k_ButtonNameShowCart))
+        if (Input.GetButtonUp(GameConstants.k_ButtonNameShowCart))
         {
             SetActiveCart(false);
         }
