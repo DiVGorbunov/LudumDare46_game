@@ -38,6 +38,7 @@ public class ClientGenerator : MonoBehaviour
             Vector3 newClientPosition;
             if (TryGetNewClientPosition(out newClientPosition))
             {
+                PlayerPosition.y = newClientPosition.y;
                 Quaternion quat = Quaternion.LookRotation(newClientPosition - PlayerPosition, Vector3.up);
                 var newClient = Instantiate(client, newClientPosition, quat, gameObject.transform);
                 newClient.transform.localScale = clientTransformScale;
