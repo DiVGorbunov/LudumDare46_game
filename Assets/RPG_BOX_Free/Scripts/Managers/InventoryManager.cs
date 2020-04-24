@@ -53,8 +53,13 @@ public class InventoryManager : MonoBehaviour
 
     }
 
+    int screenWidth = 0;
+    int screenHeight = 0;
+
     private void Start()
     {
+        screenWidth = Screen.width;
+        screenHeight = Screen.height;
         TransformsLoader();
         PrefabLoader();
         MaxNumberOfItemsALLinventory = Columns * Rows;
@@ -91,6 +96,32 @@ public class InventoryManager : MonoBehaviour
             ResetPosAndOccList();
         }
         SetupStartSet();
+    }
+
+    IEnumerator ResetOnResize()
+    {
+        yield return new WaitForEndOfFrame();
+        if (Columns == 1 && SlotsParent.childCount > 1)
+        {
+            X1Y1 = SlotsParent.GetChild(0);
+            X1Y2 = SlotsParent.GetChild(1);
+            X2Y1 = SlotsParent.GetChild(0);
+            ResetPosOfCells();
+        }
+        else if (Rows == 1 && SlotsParent.childCount > 1)
+        {
+            X1Y1 = SlotsParent.GetChild(0);
+            X1Y2 = SlotsParent.GetChild(0);
+            X2Y1 = SlotsParent.GetChild(1);
+            ResetPosOfCells();
+        }
+        else if (SlotsParent.childCount > Columns + 1)
+        {
+            X1Y1 = SlotsParent.GetChild(0);
+            X1Y2 = SlotsParent.GetChild(Columns + 1);
+            X2Y1 = SlotsParent.GetChild(1);
+            ResetPosOfCells();
+        }
     }
 
     public void ChangeSprites()//change sprites of Background and Slot
@@ -141,6 +172,28 @@ public class InventoryManager : MonoBehaviour
             }
 
             PositionsAndOccupation.Add(new CustomBoolIntVector2(false, 0, ThePos));//0 is if the user needed more than one tab for the inventory
+        }
+    }
+
+    void ResetPosOfCells()
+    {
+        float CurrentX = X1Y1.position.x;
+        float CurrentY = X1Y1.position.y;
+        float xDiff = X2Y1.position.x - X1Y1.position.x;
+        float yDiff = X1Y2.position.y - X1Y1.position.y;
+
+        for (int i = 0; i < PositionsAndOccupation.Count; i++)
+        {
+            Vector2 ThePos = new Vector2(CurrentX, CurrentY);
+
+            CurrentX += xDiff;
+            if ((i + 1) % Columns == 0)
+            {
+                CurrentX = X1Y1.position.x;
+                CurrentY += yDiff;
+            }
+
+            PositionsAndOccupation[i].aPos=ThePos;//0 is if the user needed more than one tab for the inventory
         }
     }
 
@@ -248,6 +301,16 @@ public class InventoryManager : MonoBehaviour
     {
         return Inventory.Count;
     }
+
+    protected void Update()
+    {
+        if (screenWidth != Screen.width || screenHeight != Screen.height)
+        {
+            screenWidth = Screen.width;
+            screenHeight = Screen.height;
+            StartCoroutine(ResetOnResize());
+        }
+    }
 }
 
 public class CustomBoolIntVector2
@@ -288,3 +351,5 @@ public class CustomItemIntInt
         ItemNumberInInventory = itemNumber;
     }
 }
+
+

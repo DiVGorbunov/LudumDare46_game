@@ -5,6 +5,7 @@ public class FruitBucket : InventoryManager
 
     private void Update()
     {
+        base.Update();
         if (Input.GetKeyDown(KeyCode.R))
         {
             this.removeAllFruits();

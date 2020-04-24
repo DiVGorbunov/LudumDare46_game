@@ -14,6 +14,7 @@ public class FruitFactory : InventoryManager
     }
     private void Update()
     {
+        base.Update();
         if (
             Input.GetKeyDown(KeyCode.Space) &&
             Inventory.Count < Rows * Columns
