@@ -36,6 +36,8 @@ public class GameMenuManager : MonoBehaviour
     Health m_PlayerHealth;
     FramerateCounter m_FramerateCounter;
 
+    public static bool isCurrentlyActive = false;
+
     void Start()
     {
         m_PlayerInputsHandler = FindObjectOfType<PlayerInputHandler>();
@@ -66,16 +68,16 @@ public class GameMenuManager : MonoBehaviour
     private void Update()
     {
         // Lock cursor when clicking outside of menu
-        if (!menuRoot.activeSelf && Input.GetMouseButtonDown(0))
+        /*if (!menuRoot.activeSelf && Input.GetMouseButtonDown(0))
         {
             //Cursor.lockState = CursorLockMode.Locked;
             //Cursor.visible = false;
-        }
-        if(Input.GetKeyDown(KeyCode.Escape))
+        }*/
+        /*if(Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-        }
+        }*/
 
         if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
             || (menuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
@@ -126,12 +128,15 @@ public class GameMenuManager : MonoBehaviour
         else
         {
             SetSettingsVisibility(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            if(!CartUIHandler.isCurrentlyActive)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }            
             Time.timeScale = 1f;
             AudioUtility.SetMasterVolume(1);
         }
-
+        isCurrentlyActive = active;
     }
 
     void OnMouseSensitivityChanged(float newValue)

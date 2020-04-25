@@ -3,9 +3,9 @@
 public class PlayerInputHandler : MonoBehaviour
 {
     [Tooltip("Sensitivity multiplier for moving the camera around")]
-    public float lookSensitivity = 1f;
+    public float lookSensitivity = 1.5f;
     [Tooltip("Additional sensitivity multiplier for WebGL")]
-    public float webglLookSensitivityMultiplier = 0.25f;
+    public float webglLookSensitivityMultiplier = 0.5f;
     [Tooltip("Limit to consider an input when using a trigger on a controller")]
     public float triggerAxisThreshold = 0.4f;
     [Tooltip("Used to flip the vertical input axis")]

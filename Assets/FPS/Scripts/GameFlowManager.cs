@@ -78,8 +78,8 @@ public class GameFlowManager : MonoBehaviour
     void EndGame(bool win)
     {
         // unlocks the cursor before leaving the scene, to be able to click buttons
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
 
         // Remember that we need to load the appropriate end scene after a delay
         gameIsEnding = true;

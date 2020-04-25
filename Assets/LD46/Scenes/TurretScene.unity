@@ -1875,7 +1875,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557260044}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.014413595, y: -0.15041381, z: -0.46656466}
+  m_LocalPosition: {x: 0.014413595, y: -0.22, z: -0.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 766263356}
@@ -1986,7 +1986,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 678094585}
   m_LocalRotation: {x: -0, y: -0.00012155809, z: -0, w: -1}
-  m_LocalPosition: {x: -22.32, y: -2.6, z: 32.78}
+  m_LocalPosition: {x: -22.32, y: -2.68, z: 32.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1453598497}
@@ -3444,6 +3444,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8968780820768924655, guid: 798d643a4ede6884182e46a87964ed69,
+        type: 3}
+      propertyPath: lookSensitivity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8968780820768924655, guid: 798d643a4ede6884182e46a87964ed69,
+        type: 3}
+      propertyPath: webglLookSensitivityMultiplier
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 298744117520805562, guid: 798d643a4ede6884182e46a87964ed69,
         type: 3}
       propertyPath: m_Turret
