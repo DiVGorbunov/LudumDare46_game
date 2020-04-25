@@ -5,7 +5,8 @@ public class FruitBucket : InventoryManager
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        base.Update();
+        if (TurretPlayerInputHandler.instance.CanProcessInput() && Input.GetKeyDown(KeyCode.R))
         {
             this.removeAllFruits();
         }
