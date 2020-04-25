@@ -9,6 +9,7 @@ public class MultipleObjectiveDisplayMessage : MonoBehaviour
 
     public ObjectiveSatisfyClients objectiveSatisfyClients;
     public ObjectiveUnsatisfiedClients objectiveUnsatisfiedClients;
+    public bool useDifficultyManager = true;
 
     float m_InitTime = float.NegativeInfinity;
     bool m_WasDisplayed;
@@ -42,6 +43,12 @@ public class MultipleObjectiveDisplayMessage : MonoBehaviour
 
     string GetMessage()
     {
+        if (useDifficultyManager)
+        {
+            return DifficultyManager.Instance.GetWinningMessage();
+        }
+
+
         string message = "Satisfy " + objectiveSatisfyClients.minSatisfiedClients + " " + GetClientByNumber(objectiveSatisfyClients.minSatisfiedClients) + " !";
 
         if (objectiveUnsatisfiedClients.maxUnsatisfiedClients > 0)
